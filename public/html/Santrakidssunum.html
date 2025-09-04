@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santrakids.com - Futbol Portalı ve Proje Sunumu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0e6ed;
+            color: #333;
+        }
+        .header-bg {
+            background-color: #1a237e;
+        }
+        .nav-bg {
+            background-color: #283593;
+        }
+        .sidebar-bg {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .content-bg {
+            background-color: #f7f9fc;
+        }
+        .card-bg-light {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .text-dark-blue {
+            color: #1a237e;
+        }
+        .text-medium-blue {
+            color: #283593;
+        }
+        .text-light-blue {
+            color: #42a5f5;
+        }
+        .text-red-highlight {
+            color: #ef5350;
+        }
+        .border-gray-light {
+            border-color: #d1d5db;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 280px 1fr 280px;
+            }
+        }
+        /* LLM Feature Card Styles */
+        .llm-feature-card {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #F3F4F6;
+            margin-bottom: 24px;
+        }
+        .llm-feature-card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #00E5FF;
+            margin-bottom: 15px;
+            text-shadow: 0 0 3px rgba(0, 229, 255, 0.5);
+        }
+        .llm-feature-card textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #4B5563;
+            background-color: #374151;
+            color: #F3F4F6;
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        .llm-feature-card button {
+            background: linear-gradient(90deg, #00E5FF, #004FFF);
+            color: white;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 229, 255, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: none;
+            width: auto;
+            display: inline-block;
+        }
+        .llm-feature-card button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 229, 255, 0.4);
+        }
+        .loading-indicator {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #00E5FF;
+            display: none;
+        }
+        .analysis-result {
+            margin-top: 15px;
+            background-color: #2D3748;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4B5563;
+            color: #F3F4F6;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        /* Club/Player/Manager Profile Common Styles */
+        .profile-section, .presentation-section { /* Added .presentation-section */
+            background-color: #f7f9fc;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        .profile-section h2, .presentation-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #d1d5db;
+            padding-bottom: 0.5rem;
+        }
+        .profile-section h3, .presentation-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #283593;
+            margin-bottom: 1rem;
+        }
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+        }
+        .detail-item span {
+            margin-left: 0.5rem;
+        }
+        .img-placeholder {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card-management {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .card-management img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a237e;
+        }
+        .kpi-label {
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-top: 0.25rem;
+        }
+        .action-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .action-btn:hover {
+            background-color: #218838;
+        }
+        .stat-bar-container {
+            background-color: #e0e6ed;
+            border-radius: 4px;
+            height: 8px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .stat-bar {
+            height: 100%;
+            border-radius: 4px;
+            background-color: #283593; /* Blue */
+            width: 75%; /* Example value */
+        }
+
+        /* NFT Collection / Album specific styles */
+        .nft-collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        .nft-item {
+            width: 80px;
+            height: 110px;
+            background-color: #e0e6ed;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .nft-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .nft-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            font-size: 0.8rem;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        .nft-item:hover .nft-item-overlay {
+            opacity: 1;
+        }
+
+        /* Presentation Section Specific Styles */
+        .presentation-section h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            color: #1a237e; /* Dark Blue */
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #283593; /* Medium Blue */
+        }
+        .presentation-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #283593; /* Medium Blue */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #d1d5db;
+            padding-bottom: 0.5rem;
+        }
+        .presentation-section h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a237e; /* Dark Blue */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .presentation-section p, .presentation-section ul {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a5568; /* Grayish text */
+            margin-bottom: 1rem;
+        }
+        .presentation-section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .presentation-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        .presentation-section strong {
+            color: #1a237e;
+        }
+        .presentation-slide {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .presentation-slide h3 {
+            font-size: 1.8rem;
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        .presentation-slide h3::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #42a5f5;
+            border-radius: 2px;
+        }
+        .presentation-slide .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .presentation-slide .content-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .presentation-slide .content-grid.reverse-order {
+                grid-template-columns: 1fr 1fr;
+            }
+            .presentation-slide .content-grid.reverse-order div:first-child {
+                order: 2; /* Move text to right */
+            }
+            .presentation-slide .content-grid.reverse-order div:last-child {
+                order: 1; /* Move image to left */
+            }
+        }
+        .presentation-slide ul {
+            list-style-type: none; /* Remove default bullets */
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+        .presentation-slide ul li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #333;
+            font-size: 1.05rem;
+        }
+        .presentation-slide ul li::before {
+            content: '✅'; /* Custom bullet point */
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-size: 1rem;
+            top: 2px;
+        }
+        .presentation-slide img.feature-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .presentation-slide .section-description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header Bar -->
+    <div class="header-bg text-white text-sm py-1">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center space-x-2">
+                <!-- Santrakids logo placeholder -->
+                <img src="https://placehold.co/30x30/F7931E/ECECEC?text=SK" alt="Santrakids Logo" class="h-6 w-6 object-cover rounded-full">
+                <a href="#" class="text-white">Santrakids.com</a>
+                <span class="text-xs text-gray-300">|</span>
+                <a href="#" class="text-white">CANLI</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" placeholder="Arama" class="bg-transparent border-b border-gray-400 text-white placeholder-gray-300 focus:outline-none focus:border-white text-sm pb-1">
+                    <span class="absolute right-0 top-0.5 text-gray-300">🔍</span>
+                </div>
+                <span class="icon">👤</span>
+                <span class="icon">⚙️</span>
+                <span class="icon">🔔</span>
+                <span class="icon">✉️</span>
+                <span class="icon">💬</span>
+                <span class="icon">📈</span>
+                <a href="#" class="bg-white text-blue-800 text-xs px-2 py-1 rounded">Şimdi giriş yap</a>
+                <span class="icon">≡</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="nav-bg text-white py-2 shadow-md">
+        <div class="container mx-auto flex items-center justify-between px-4 text-sm font-medium">
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-gray-300">KEŞFET</a>
+                <a href="#" class="hover:text-gray-300">TRANSFERLER VE SÖYLENTİLER</a>
+                <a href="#" class="hover:text-gray-300">PİYASA DEĞERLERİ</a>
+                <a href="#" class="hover:text-gray-300">MÜSABAKALAR</a>
+                <a href="#" class="hover:text-gray-300">İSTATİSTİKLER</a>
+                <a href="#" class="hover:text-gray-300">TOPLULUK</a>
+                <a href="#" class="hover:text-gray-300">OYUNLAR</a>
+                <a href="#" class="hover:text-gray-300">SPORCU KARTI</a>
+            </div>
+            <div class="flex items-center space-x-2 hidden lg:flex">
+                <span class="icon">≡</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumbs / Filtering Bar -->
+    <div class="bg-gray-100 py-2 border-b border-gray-200">
+        <div class="container mx-auto flex items-center space-x-2 px-4 text-sm text-gray-600">
+            <span class="icon">🏠</span>
+            <span class="text-gray-400">›</span>
+            <div class="flex items-center space-x-1">
+                <span class="icon">🇹🇷</span>
+                <span>Türkiye</span>
+                <span class="icon">▼</span>
+            </div>
+            <span class="text-gray-400">›</span>
+            <div class="flex items-center space-x-1">
+                <span class="icon">⚽</span>
+                <span>Müsabaka</span>
+                <span class="icon">▼</span>
+            </div>
+            <span class="text-gray-400">›</span>
+            <div class="flex items-center space-x-1">
+                <span class="icon">👕</span>
+                <span>Kulüp</span>
+                <span class="icon">▼</span>
+            </div>
+            <span class="text-gray-400">›</span>
+            <div class="flex items-center space-x-1">
+                <span class="icon">🧑‍🤝‍🧑</span>
+                <span>Oyuncu</span>
+                <span class="icon">▼</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area (3 Column Layout) -->
+    <div class="container mx-auto my-4 px-4 main-grid">
+
+        <!-- Left Sidebar -->
+        <aside class="sidebar-bg p-4 rounded-lg">
+            <!-- Player Potential Analysis Tool -->
+            <div class="llm-feature-card">
+                <h2>✨ Oyuncu Potansiyeli Analiz Aracı ✨</h2>
+                <p class="text-gray-400 text-sm mb-3">Aşağıya genç bir futbolcunun özelliklerini (yaş, mevkii, fiziksel, teknik ve mental nitelikler) yazın, yapay zeka potansiyelini analiz etsin.</p>
+                <textarea id="playerDescription" placeholder="Örnek: 10 yaşında, forvet, çok hızlı ve şutları güçlü, pasları geliştirmeli, liderlik özellikleri var."></textarea>
+                <button id="analyzeButton">Analiz Et</button>
+                <div id="loadingIndicator" class="loading-indicator">Yapay zeka analiz ediyor...</div>
+                <div id="analysisResult" class="analysis-result"></div>
+            </div>
+
+            <!-- "En Popüler Haberler" moved here from Right Sidebar -->
+            <h3 class="font-bold text-lg mb-4 text-dark-blue mt-6">En Popüler Haberler</h3>
+            <div class="card-bg-light rounded-lg shadow-sm p-3 mb-4">
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li><a href="#" class="hover:underline">1. Fenerbahçe'nin Yeni Stoperi Belli Oldu</a></li>
+                    <li><a href="#" class="hover:underline">2. Genç Kaleci Performansıyla Göz Doldurdu</a></li>
+                    <li><a href="#" class="hover:underline">3. Süper Lig'de Haftanın En İyi 11'i</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Middle Main Content -->
+        <main class="content-bg p-4 rounded-lg">
+            <!-- Agenda / News Tabs -->
+            <div class="flex border-b border-gray-300 mb-6">
+                <button class="px-4 py-2 text-dark-blue border-b-2 border-dark-blue font-semibold">GÜNDEM</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Önemliler</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Günün haberleri</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Günün karşılaşmaları</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Transfer rekorları</button>
+            </div>
+
+            <!-- Main News Card -->
+            <div class="card-bg-light rounded-lg shadow-md mb-6 overflow-hidden">
+                <div class="relative">
+                    <img src="https://placehold.co/700x400/1a237e/ffffff?text=Bahce+Spor+Klubu+Oyuncusu" alt="Bahçe Spor Kulübü Oyuncusu" class="w-full h-auto object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 text-white">
+                        <div class="flex items-center mb-2">
+                            <img src="https://placehold.co/40x40/4CAF50/ffffff?text=BS" alt="Kulüp Logo" class="w-10 h-10 rounded-full mr-2 border border-white">
+                            <span class="text-xl font-bold">BAHÇE SPOR KULÜBÜ</span>
+                            <span class="ml-auto text-sm bg-gray-700 px-2 py-1 rounded-full opacity-80">07</span>
+                        </div>
+                        <h3 class="text-2xl font-bold">ORTA SAHA HARABEYİ</h3>
+                        <p class="text-lg font-semibold mt-2">Fenerbahçe, Edson Álvarez için görüşmelere başladı - Mourinho'nun özel talebi</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom News Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-bg-light rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/300x200/FFD600/1F2937?text=Transfer+Soylentileri" alt="Transfer Söylentileri" class="w-full h-auto object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center text-red-highlight text-xs font-semibold mb-2">
+                            <span class="icon mr-1">🔄</span> TRANSFER SÖYLENTİLERİ
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Kimin hangi takıma transfer olacağı? Tüm güncel transfer söylentileri</h4>
+                    </div>
+                </div>
+                <div class="card-bg-light rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/300x200/00E5FF/1F2937?text=Son+Transferler" alt="Son Transferler" class="w-full h-auto object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center text-light-blue text-xs font-semibold mb-2">
+                            <span class="icon mr-1">🆕</span> SON TRANSFERLER
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Türkiye ve dünyada biten tüm transferlere göz at</h4>
+                    </div>
+                </div>
+                <div class="card-bg-light rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/300x200/FF3D00/1F2937?text=Transfer+Karlari" alt="Transfer Karları" class="w-full h-auto object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center text-orange-600 text-xs font-semibold mb-2">
+                            <span class="icon mr-1">💰</span> TRANSFER KARLARI
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Kulüplerin en çok kazanç sağladığı transferler</h4>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-bg p-4 rounded-lg">
+            <h3 class="font-bold text-lg mb-4 text-dark-blue">DİGİTAL LİG 2023-2024</h3>
+            <div class="card-bg-light rounded-lg shadow-sm p-3 mb-4">
+                <p class="text-sm font-semibold mb-2 text-dark-blue">En Popüler Haberler</p>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li><a href="#" class="hover:underline">1. Fenerbahçe'nin Yeni Stoperi Belli Oldu</a></li>
+                    <li><a href="#" class="hover:underline">2. Genç Kaleci Performansıyla Göz Doldurdu</a></li>
+                    <li><a href="#" class="hover:underline">3. Süper Lig'de Haftanın En İyi 11'i</a></li>
+                </ul>
+            </div>
+
+            <div class="w-full bg-gray-200 h-48 flex-center text-gray-500 rounded-lg mb-6">
+                <img src="https://placehold.co/250x200/cccccc/444444?text=Reklam+Alani" alt="Reklam Alanı" class="w-full h-full object-cover rounded-lg">
+                <div class="absolute text-center bg-black bg-opacity-50 p-2 rounded">
+                    <p class="text-white text-sm">Dacia Sandero Stepway</p>
+                    <p class="text-xs text-gray-300">Yeni maceralara atıl</p>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-lg mb-4 text-dark-blue flex items-center justify-between">
+                <span>EN ÇOK TANINAN PROFİLLER</span>
+                <div class="flex space-x-2 text-gray-500">
+                    <button class="bg-gray-100 p-1 rounded-full hover:bg-gray-200">⬅️</button>
+                    <button class="bg-gray-100 p-1 rounded-full hover:bg-gray-200">➡️</button>
+                </div>
+            </h3>
+            <ul class="space-y-3">
+                <li class="flex items-center card-bg-light p-2 rounded-md shadow-sm">
+                    <span class="font-bold text-lg mr-2 text-dark-blue">#1</span>
+                    <img src="https://placehold.co/50x50/3498db/ffffff?text=D.Nene" alt="D. Nene Profil" class="w-12 h-12 rounded-full mr-3 object-cover">
+                    <div>
+                        <p class="font-semibold text-gray-800">D. Nene</p>
+                        <p class="text-xs text-gray-600">Piyasa değeri: <span class="text-green-600">12.00 mil. €</span></p>
+                        <p class="text-xs text-gray-500">Salzburg</p>
+                    </div>
+                </li>
+                <li class="flex items-center card-bg-light p-2 rounded-md shadow-sm">
+                    <span class="font-bold text-lg mr-2 text-dark-blue">#2</span>
+                    <img src="https://placehold.co/50x50/2ecc71/ffffff?text=M.Diouf" alt="M. Diouf Profil" class="w-12 h-12 rounded-full mr-3 object-cover">
+                    <div>
+                        <p class="font-semibold text-gray-800">M. Diouf</p>
+                        <p class="text-xs text-gray-600">Piyasa değeri: <span class="text-green-600">8.50 mil. €</span></p>
+                        <p class="text-xs text-gray-500">St. Pauli</p>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+
+    </div>
+
+    <!-- Yeni Bölüm: Kulüp Yönetim Paneli -->
+    <section id="club-admin-panel" class="container mx-auto my-8 p-4 md:p-8 profile-section">
+        <h2 class="text-center mb-8">Kulüp Yönetim Paneli: Aslan Spor</h2>
+
+        <!-- Kulüp Bilgileri -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div>
+                <h3 class="mb-4">Kulüp Bilgileri</h3>
+                <p class="text-gray-700 text-sm mb-4">
+                    **Tarihçe:** Aslan Spor Kulübü, 1985 yılında kurulmuş olup, Bölgesel Amatör Lig'de mücadele etmektedir. Topluma ve genç yeteneklere sporu sevdirmeyi misyon edinmiştir.
+                </p>
+                <div class="detail-item">
+                    <span class="icon">📍</span> <span>Adres: Cumhuriyet Mah. No:123, Spor Tesisleri, İstanbul</span>
+                </div>
+                <div class="detail-item">
+                    <span class="icon">📞</span> <span>Telefon: +90 212 123 45 67</span>
+                </div>
+                <div class="detail-item">
+                    <span class="icon">📧</span> <span>E-posta: info@aslanspor.com</span>
+                </div>
+            </div>
+            <div>
+                <h3 class="mb-4">Tesislerimiz</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <img src="https://placehold.co/300x200/42a5f5/ffffff?text=Tesis+Gorseli+1" alt="Tesis Görseli 1" class="img-placeholder">
+                    <img src="https://placehold.co/300x200/42a5f5/ffffff?text=Tesis+Gorseli+2" alt="Tesis Görseli 2" class="img-placeholder">
+                </div>
+            </div>
+        </div>
+
+        <!-- Kulüp Haberleri ve Duyuruları -->
+        <h3 class="mb-4">Kulüp Haberleri ve Duyuruları</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-2">Sezon Hazırlıkları Başladı!</h4>
+                <p class="text-gray-700 text-sm">Takımımız yeni sezon hazırlıklarına yoğun antrenman programıyla başladı.</p>
+                <span class="text-xs text-gray-500 mt-2 block">10 Ağustos 2025</span>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-2">Genç Yetenek Kampı Tamamlandı</h4>
+                <p class="text-gray-700 text-sm">Kulübümüzün düzenlediği genç yetenek kampı büyük ilgi gördü.</p>
+                <span class="text-xs text-gray-500 mt-2 block">05 Ağustos 2025</span>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-2">Yeni Sponsorluk Anlaşması</h4>
+                <p class="text-gray-700 text-sm">Aslan Spor, X firmasıyla yeni bir sponsorluk anlaşması imzaladı.</p>
+                <span class="text-xs text-gray-500 mt-2 block">01 Ağustos 2025</span>
+            </div>
+        </div>
+
+        <!-- Oyuncu Yönetimi (Kulüp için) -->
+        <h3 class="mb-4">Oyuncu Yönetimi</h3>
+        <p class="text-gray-700 text-sm mb-6">Mevcut oyuncularınızı yönetin veya yeni oyuncu profilleri oluşturun.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="card-management">
+                <img src="https://placehold.co/150x180/F7931E/ffffff?text=Yeni+Oyuncu+Ekle" alt="Yeni Oyuncu Ekle" class="cursor-pointer hover:opacity-80 transition">
+                <h4 class="font-semibold text-dark-blue mt-2">Yeni Oyuncu Ekle</h4>
+                <p class="text-xs text-gray-500">Profil oluştur ve NFT kartı bas.</p>
+            </div>
+            <div class="card-management">
+                <img src="https://placehold.co/150x180/004FFF/ffffff?text=Ali+Yilmaz%0ADef%3A+80%0AOfansif%3A+65" alt="Ali Yılmaz Oyuncu Kartı" class="cursor-pointer hover:opacity-80 transition">
+                <h4 class="font-semibold text-dark-blue mt-2">Ali Yılmaz</h4>
+                <p class="text-xs text-gray-500">Mevki: ST, Yaş: 22</p>
+                <button class="w-full text-xs action-btn mt-2">Performans Güncelle</button>
+            </div>
+            <div class="card-management">
+                <img src="https://placehold.co/150x180/00E5FF/ffffff?text=Can+Demir%0ADef%3A+75%0AOfansif%3A+70" alt="Can Demir Oyuncu Kartı" class="cursor-pointer hover:opacity-80 transition">
+                <h4 class="font-semibold text-dark-blue mt-2">Can Demir</h4>
+                <p class="text-xs text-gray-500">Mevki: OS, Yaş: 20</p>
+                <button class="w-full text-xs action-btn mt-2">Performans Güncelle</button>
+            </div>
+            <div class="card-management">
+                <img src="https://placehold.co/150x180/FF3D00/ffffff?text=Efe+Kaya%0ADef%3A+85%0AOfansif%3A+50" alt="Efe Kaya Oyuncu Kartı" class="cursor-pointer hover:opacity-80 transition">
+                <h4 class="font-semibold text-dark-blue mt-2">Efe Kaya</h4>
+                <p class="text-xs text-gray-500">Mevki: STP, Yaş: 24</p>
+                <button class="w-full text-xs action-btn mt-2">Performans Güncelle</button>
+            </div>
+        </div>
+
+        <!-- NFT Sports Card Locker and Marketplace (Club) -->
+        <h3 class="mb-4">NFT Sporcu Kartları Kasası ve Pazarı <span class="text-xs text-gray-500">(Tüm işlemler Token ile yapılır)</span></h3>
+        <p class="text-gray-700 text-sm mb-6">Kulübünüze ait basılı NFT kartları saklayın, yenilerini **basın**, **alın** veya **satın**.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-3">Kasımzdaki Kartlar</h4>
+                <div class="flex flex-wrap gap-3">
+                    <img src="https://placehold.co/80x110/FFD600/1F2937?text=Kart+A1" alt="NFT Kart A1" class="w-20 h-auto rounded-md border border-gray-300">
+                    <img src="https://placehold.co/80x110/00E5FF/1F2937?text=Kart+B2" alt="NFT Kart B2" class="w-20 h-auto rounded-md border border-gray-300">
+                    <img src="https://placehold.co/80x110/FF3D00/1F2937?text=Kart+C3" alt="NFT Kart C3" class="w-20 h-auto rounded-md border border-gray-300">
+                    <div class="flex-center w-20 h-28 bg-gray-100 rounded-md border border-gray-300 text-gray-500 text-sm">... +8</div>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn">NFT Kart Bas / Listele</button>
+                <button class="w-full mt-2 py-2 action-btn bg-blue-500 hover:bg-blue-600">Pazar Yerinden Al</button>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-3">Pazar Yeri İşlemleri</h4>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-700">
+                    <span>Bekleyen Satış:</span> <span class="font-bold text-red-highlight">2 Kart</span>
+                </div>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-700">
+                    <span>Bekleyen Alım Teklifi:</span> <span class="font-bold text-green-600">5 Teklif</span>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn">NFT Satışlarını Yönet</button>
+            </div>
+        </div>
+
+        <!-- Total Team Value and Bonuses -->
+        <h3 class="mb-4">Toplam Takım Değeri ve Bonuslar <span class="text-xs text-gray-500">(Token Kazanımları)</span></h3>
+        <p class="text-gray-700 text-sm mb-6">Kulübünüzün dijital değerini ve kazanılan bonusları takip edin.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <div class="kpi-value">125.000</div>
+                <div class="kpi-label">Toplam Takım Değeri (Token)</div>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <div class="kpi-value">5.200</div>
+                <div class="kpi-label">Kazanılan Bonus (Token)</div>
+                <button class="mt-3 action-btn">Bonus Geçmişi</button>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <div class="kpi-value">🚀</div>
+                <div class="kpi-label">Değer Artırma Bonusları</div>
+                <p class="text-xs text-gray-500 mt-2">Maç kazanımları, oyuncu gelişimleri vb.</p>
+                <button class="mt-3 action-btn">Bonus Detayları</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section: Player Profile Management Panel -->
+    <section id="player-admin-panel" class="container mx-auto my-8 p-4 md:p-8 profile-section">
+        <h2 class="text-center mb-8">Oyuncu Profili Yönetim Paneli: Ali Yılmaz</h2>
+
+        <!-- Personal and Sports Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="flex flex-col items-center justify-center card-bg-light p-4 rounded-lg shadow-sm">
+                <img src="https://placehold.co/150x180/004FFF/ffffff?text=Ali+Yilmaz" alt="Ali Yılmaz Profil" class="w-32 h-32 rounded-full object-cover mb-4 border-2 border-blue-500">
+                <h3 class="font-bold text-dark-blue">Ali Yılmaz</h3>
+                <p class="text-gray-700 text-sm">Kulüp: Aslan Spor</p>
+                <p class="text-gray-700 text-sm">Mevki: Santrafor</p>
+                <p class="text-gray-700 text-sm">Yaş: 22</p>
+                <button class="w-full mt-4 py-2 action-btn bg-gray-600 hover:bg-gray-700">Profilimi Düzenle</button>
+            </div>
+            <div>
+                <h3 class="mb-4">Sportif Performans</h3>
+                <div class="grid grid-cols-2 gap-4 text-center mb-6">
+                    <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                        <div class="kpi-value text-green-600">15</div>
+                        <div class="kpi-label">Gol</div>
+                    </div>
+                    <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                        <div class="kpi-value text-orange-600">8</div>
+                        <div class="kpi-label">Asist</div>
+                    </div>
+                    <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                        <div class="kpi-value text-dark-blue">12.500</div>
+                        <div class="kpi-label">Piyasa Değeri (Token)</div>
+                    </div>
+                    <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                        <div class="kpi-value">92</div>
+                        <div class="kpi-label">Hız Puanı</div>
+                    </div>
+                </div>
+                <h4 class="font-semibold text-dark-blue mb-2">Nitelik Gelişimi</h4>
+                <div class="mb-2">
+                    <span class="text-sm text-gray-700">Teknik: </span><span class="text-xs text-gray-500 float-right">85</span>
+                    <div class="stat-bar-container"><div class="stat-bar" style="width: 85%;"></div></div>
+                </div>
+                <div class="mb-2">
+                    <span class="text-sm text-gray-700">Fiziksel: </span><span class="text-xs text-gray-500 float-right">78</span>
+                    <div class="stat-bar-container"><div class="stat-bar" style="width: 78%;"></div></div>
+                </div>
+                <div class="mb-2">
+                    <span class="text-sm text-gray-700">Mental: </span><span class="text-xs text-gray-500 float-right">70</span>
+                    <div class="stat-bar-container"><div class="stat-bar" style="width: 70%;"></div></div>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn">Sportif Verilerimi Güncelle</button>
+            </div>
+        </div>
+
+        <!-- My NFT Cards and Wallet (Player) -->
+        <h3 class="mb-4">NFT Kartlarım ve Cüzdanım <span class="text-xs text-gray-500">(Tüm işlemler Token ile yapılır)</span></h3>
+        <p class="text-gray-700 text-sm mb-6">Sahip olduğunuz dijital sporcu kartlarını, **basma**, **alım** ve **satım** işlemlerini yönetin.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-3">Kasımzdaki Kartlar</h4>
+                <div class="flex flex-wrap gap-3">
+                    <img src="https://placehold.co/80x110/FFD600/1F2937?text=Ali+Kart+1" alt="Ali Kart 1" class="w-20 h-auto rounded-md border border-gray-300">
+                    <img src="https://placehold.co/80x110/00E5FF/1F2937?text=Ali+Kart+2" alt="Ali Kart 2" class="w-20 h-auto rounded-md border border-gray-300">
+                    <div class="flex-center w-20 h-28 bg-gray-100 rounded-md border border-gray-300 text-gray-500 text-sm">... +2</div>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn">Yeni NFT Kart Bas</button>
+                <button class="w-full mt-2 py-2 action-btn bg-blue-500 hover:bg-blue-600">Pazar Yerinden Kart Al</button>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-3">Cüzdanım ve Kazançlarım</h4>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-700">
+                    <span>Mevcut Bakiye:</span> <span class="font-bold text-green-600">7.800 Token</span>
+                </div>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-700">
+                    <span>Toplam Kazanç (NFT):</span> <span class="font-bold text-dark-blue">2.500 Token</span>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn">Tokenları Nakite Çevir / Para Çek</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section: Digital Manager Management Panel -->
+    <section id="manager-admin-panel" class="container mx-auto my-8 p-4 md:p-8 profile-section">
+        <h2 class="text-center mb-8">Dijital Menajer Yönetim Paneli: Ayşe Yılmaz</h2>
+
+        <!-- Manager Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="flex flex-col items-center justify-center card-bg-light p-4 rounded-lg shadow-sm">
+                <img src="https://placehold.co/150x180/F7931E/ffffff?text=Ayse+Yilmaz" alt="Ayşe Yılmaz Menajer Profil" class="w-32 h-32 rounded-full object-cover mb-4 border-2 border-orange-500">
+                <h3 class="font-bold text-dark-blue">Ayşe Yılmaz</h3>
+                <p class="text-gray-700 text-sm">Uzmanlık Alanı: Scout & Oyuncu Gelişimi</p>
+                <p class="text-gray-700 text-sm">Aktif Yönetilen Oyuncu Sayısı: 5</p>
+                <button class="w-full mt-4 py-2 action-btn bg-gray-600 hover:bg-gray-700">Profilimi Düzenle</button>
+            </div>
+            <div>
+                <h3 class="mb-4">Yönettiği Oyunculara Genel Bakış</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center card-bg-light p-3 rounded-md shadow-sm">
+                        <img src="https://placehold.co/50x50/004FFF/ffffff?text=OY1" alt="Yönetilen Oyuncu 1" class="w-12 h-12 rounded-full mr-3 object-cover">
+                        <div>
+                            <p class="font-semibold text-gray-800">Cem Karaca</p>
+                            <p class="text-xs text-gray-600">Piyasa değeri: <span class="text-green-600">9.000 Token</span></p>
+                            <p class="text-xs text-gray-500">Mevki: OS, Kulüp: Bal Porsukları</p>
+                        </div>
+                        <button class="ml-auto text-xs action-btn px-3 py-1">Yönet</button>
+                    </li>
+                    <li class="flex items-center card-bg-light p-3 rounded-md shadow-sm">
+                        <img src="https://placehold.co/50x50/FFD600/1F2937?text=OY2" alt="Yönetilen Oyuncu 2" class="w-12 h-12 rounded-full mr-3 object-cover">
+                        <div>
+                            <p class="font-semibold text-gray-800">Ege Akın</p>
+                            <p class="text-xs text-gray-600">Piyasa değeri: <span class="text-green-600">6.200 Token</span></p>
+                            <p class="text-xs text-gray-500">Mevki: SV, Kulüp: Ünalan Spor</p>
+                        </div>
+                        <button class="ml-auto text-xs action-btn px-3 py-1">Yönet</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- NFT Portfolio Management (Manager) -->
+        <h3 class="mb-4">NFT Portföy Yönetimi <span class="text-xs text-gray-500">(Tüm işlemler Token ile yapılır)</span></h3>
+        <p class="text-gray-700 text-sm mb-6">Temsil ettiğiniz oyuncuların NFT sporcu kartlarını **alın** veya **satın**, koleksiyonlarınızı sergileyin.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-3">NFT Koleksiyonum / Albümüm</h4>
+                <div class="nft-collection-grid mb-3">
+                    <div class="nft-item">
+                        <img src="https://placehold.co/80x110/FFD600/1F2937?text=Cem+Kart+A" alt="Cem Kart A">
+                        <div class="nft-item-overlay">Cem K. #001</div>
+                    </div>
+                    <div class="nft-item">
+                        <img src="https://placehold.co/80x110/00E5FF/1F2937?text=Ege+Kart+B" alt="Ege Kart B">
+                        <div class="nft-item-overlay">Ege A. #002</div>
+                    </div>
+                    <div class="nft-item">
+                        <img src="https://placehold.co/80x110/FF3D00/1F2937?text=Yeni+Yetenek" alt="Yeni Yetenek">
+                        <div class="nft-item-overlay">Yeni Yetenek #003</div>
+                    </div>
+                     <div class="nft-item">
+                        <img src="https://placehold.co/80x110/4CAF50/1F2937?text=Ali+Kart+C" alt="Ali Kart C">
+                        <div class="nft-item-overlay">Ali Y. #004</div>
+                    </div>
+                     <div class="nft-item">
+                        <div class="flex-center w-full h-full">... +7</div>
+                    </div>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn">Koleksiyonumu Yönet</button>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <h4 class="font-semibold text-dark-blue mb-3">Pazar Yeri İşlemleri</h4>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-700">
+                    <span>Bekleyen Satış (Oyuncu adına):</span> <span class="font-bold text-red-highlight">1 Kart</span>
+                </div>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-700">
+                    <span>Yeni Teklifler:</span> <span class="font-bold text-green-600">3 Teklif</span>
+                </div>
+                <button class="w-full mt-4 py-2 action-btn bg-blue-500 hover:bg-blue-600">NFT Kart Al/Sat</button>
+            </div>
+        </div>
+
+        <!-- Talent Discovery Tools and Commissions -->
+        <h3 class="mb-4">Yetenek Keşif Araçları ve Komisyonlar</h3>
+        <p class="text-gray-700 text-sm mb-6">Yeni yetenekleri keşfedin ve kazançlarınızı takip edin.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <div class="kpi-value">🔍</div>
+                <div class="kpi-label">Yapay Zeka Destekli Analiz</div>
+                <p class="text-xs text-gray-500 mt-2">Potansiyel genç oyuncuları keşfedin.</p>
+                <button class="mt-3 action-btn">Aracı Kullan</button>
+            </div>
+            <div class="card-bg-light p-4 rounded-lg shadow-sm">
+                <div class="kpi-value">📈</div>
+                <div class="kpi-label">Toplam Komisyon Kazancı (Token)</div>
+                <p class="text-xs text-gray-500 mt-2">Oyuncu transferleri ve kart satışlarından.</p>
+                <button class="mt-3 action-btn">Kazanç Detayları</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yeni Bölüm: Proje Kapsamı (Sunum) -->
+    <section id="project-scope" class="container mx-auto my-8 p-4 md:p-8 presentation-section">
+        <h1>Santrakids: Amatör Futbolun Dijital Geleceği</h1>
+
+        <div class="presentation-slide">
+            <h3>1. Vizyon ve Amaç</h3>
+            <p class="section-description">Santrakids, amatör futbolu dijitalleştirerek genç yeteneklere köprü olur.</p>
+            <div class="content-grid">
+                <div>
+                    <ul>
+                        <li>Amatör kulüplere yeni gelirler.</li>
+                        <li>Genç yeteneklere keşfedilme fırsatı.</li>
+                        <li>Taraftar ve sporcu bağı.</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x250/1a237e/ffffff?text=Vizyon+ve+Amac+Gorseli" alt="Vizyon ve Amaç Görseli" class="feature-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-slide reverse-order">
+            <h3>2. Kilit Paydaşlar ve Çözüm</h3>
+            <p class="section-description">Üç ana kitleye özel çözümlerle dijital bir ekosistem yaratıyoruz.</p>
+            <div class="content-grid">
+                <div>
+                    <img src="https://placehold.co/400x250/283593/ffffff?text=Kilit+Paydaslar+Gorseli" alt="Kilit Paydaşlar Görseli" class="feature-image">
+                </div>
+                <div>
+                    <ul>
+                        <li>**Kulüpler:** Görünürlük, gelir, dijitalleşme.</li>
+                        <li>**Oyuncular:** Keşfedilme, finansal destek, kariyer.</li>
+                        <li>**Menajerler:** Yetenek keşfi, portföy yönetimi.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-slide">
+            <h3>3. Dijital Kulüp Yönetimi</h3>
+            <p class="section-description">Kulübünüzü dijitalde baştan yaratın.</p>
+            <div class="content-grid">
+                <div>
+                    <ul>
+                        <li>Detaylı kulüp profil sayfası.</li>
+                        <li>Tesis görselleri ve ekip bilgileri.</li>
+                        <li>Güncel haber ve duyuru yayınlama.</li>
+                        <li>Potansiyel sponsorlara kolay erişim.</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x250/42a5f5/ffffff?text=Klub+Yonetimi+Gorseli" alt="Kulüp Yönetimi Görseli" class="feature-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-slide reverse-order">
+            <h3>4. Oyuncu Profilleme ve AI Analizi</h3>
+            <p class="section-description">Her yeteneğin potansiyelini görünür kılın.</p>
+            <div class="content-grid">
+                <div>
+                    <img src="https://placehold.co/400x250/ef5350/ffffff?text=Oyuncu+AI+Analiz+Gorseli" alt="Oyuncu AI Analiz Görseli" class="feature-image">
+                </div>
+                <div>
+                    <ul>
+                        <li>Oyuncuya özel detaylı profiller.</li>
+                        <li>Sportif performans takibi (istatistikler).</li>
+                        <li>**Yapay zeka potansiyel analizi:** Gelişim raporları.</li>
+                        <li>Objektif scout verileri sağlama.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-slide">
+            <h3>5. NFT Sporcu Kartları ve Gelir</h3>
+            <p class="section-description">Yeni finansman modeliniz: Dijital varlıklar.</p>
+            <div class="content-grid">
+                <div>
+                    <ul>
+                        <li>Oyunculara özel NFT kartları **basma**.</li>
+                        <li>Pazar yerinde kartları **alıp satma**.</li>
+                        <li>İlk satış ve ikincil piyasadan **token geliri**.</li>
+                        <li>Tüm işlemler Santrakids **Token** ile.</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x250/F7931E/ffffff?text=NFT+Gelir+Gorseli" alt="NFT Gelir Görseli" class="feature-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-slide reverse-order">
+            <h3>6. Kulüp Değeri ve Bonus Sistemi</h3>
+            <p class="section-description">Başarılarınız dijital değere dönüşsün.</p>
+            <div class="content-grid">
+                <div>
+                    <img src="https://placehold.co/400x250/00E5FF/1F2937?text=Bonus+Sistemi+Gorseli" alt="Bonus Sistemi Görseli" class="feature-image">
+                </div>
+                <div>
+                    <ul>
+                        <li>Anlık takım değeri takibi (Token).</li>
+                        <li>Maç başarısı, oyuncu gelişimiyle **bonus** kazanımı.</li>
+                        <li>Bonusları görünürlük veya nakite çevirme.</li>
+                        <li>Adil ve şeffaf değer artışı.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-slide">
+            <h3>7. Geniş Kitle ve Keşif Fırsatı</h3>
+            <p class="section-description">Yetenekleriniz artık global sahnede.</p>
+            <div class="content-grid">
+                <div>
+                    <ul>
+                        <li>Ulusal ve uluslararası görünürlük.</li>
+                        <li>Profesyonel scoutlar için kolay erişim.</li>
+                        <li>Yeni kariyer kapıları aralama.</li>
+                        <li>Kulüp marka değerinizi yükseltme.</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x250/FF3D00/ffffff?text=Global+Kitle+Gorseli" alt="Global Kitle Görseli" class="feature-image">
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-8 font-bold text-dark-blue text-2xl text-center">
+            Santrakids: Amatör Futbolun Geleceğini Birlikte İnşa Ediyoruz!
+        </p>
+        <p class="text-lg text-gray-600 text-center mt-4">
+            Daha fazla bilgi için bizimle iletişime geçin.
+        </p>
+    </section>
+
+    <!-- Alt Bilgi (Basit) -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto text-center text-sm text-gray-400">
+            <p>&copy; 2025 Santrakids.com. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        const playerDescriptionTextarea = document.getElementById('playerDescription');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const analysisResultDiv = document.getElementById('analysisResult');
+
+        analyzeButton.addEventListener('click', async () => {
+            const promptInput = playerDescriptionTextarea.value.trim();
+            if (!promptInput) {
+                analysisResultDiv.innerHTML = '<p class="text-red-400">Lütfen oyuncu özelliklerini girin.</p>';
+                return;
+            }
+
+            loadingIndicator.style.display = 'block';
+            analyzeButton.disabled = true;
+            analysisResultDiv.innerHTML = '';
+
+            let chatHistory = [];
+            chatHistory.push({
+                role: "user",
+                parts: [{ text: `Aşağıda özellikleri verilen genç futbolcunun potansiyelini, güçlü ve zayıf yönlerini, gelişmesi gereken alanları ve genel bir scout raporu şeklinde 100 kelime civarında analiz et. Profesyonel ve teşvik edici bir dil kullan. Türk futbolu bağlamında değerlendirebilirsin. Oyuncu özellikleri: ${promptInput}` }]
+            });
+
+            const payload = { contents: chatHistory };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            let retries = 0;
+            const maxRetries = 5;
+            const baseDelay = 1000;
+
+            while (retries < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 429) {
+                            retries++;
+                            const delay = baseDelay * Math.pow(2, retries - 1);
+                            await new Promise(res => setTimeout(res, delay));
+                            continue;
+                        } else {
+                            throw new Error(`API hatası: ${response.status} ${response.statusText}`);
+                        }
+                    }
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        analysisResultDiv.innerHTML = `<p>${text}</p>`;
+                    } else {
+                        analysisResultDiv.innerHTML = '<p class="text-red-400">Analiz oluşturulamadı. Lütfen farklı bir giriş deneyin.</p>';
+                    }
+                    break;
+                } catch (error) {
+                    analysisResultDiv.innerHTML = `<p class="text-red-400">Bir hata oluştu: ${error.message}</p>`;
+                    break;
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    analyzeButton.disabled = false;
+                }
+            }
+            if (retries === maxRetries) {
+                analysisResultDiv.innerHTML = '<p class="text-red-400">Çok fazla deneme yapıldı. Lütfen daha sonra tekrar deneyin.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

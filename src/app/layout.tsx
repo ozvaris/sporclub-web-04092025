@@ -6,7 +6,7 @@ import Providers from "./providers";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
-  title: "Talenty Shop",
+  title: "Talenty",
   description: "Next 15.4 – TanStack Query demo",
 };
 

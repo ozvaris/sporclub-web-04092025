@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santrakids.com - Futbol Portalı ve Proje Sunumu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./mainpage.css">
+    
+</head>
+
+<body class="min-h-screen flex flex-col">
+    
+    <!-- HEADER -->
+    <header>
+
+        <!-- Desktop: Top Header Bar -->
+        <div class="header-bg text-white text-sm py-1 hidden lg:block">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <div class="flex items-center space-x-2">
+                    <img src="https://placehold.co/30x30/F7931E/ECECEC?text=SK" alt="Santrakids Logo"
+                        class="h-6 w-6 object-cover rounded-full">                    
+                    <a href="#" class="text-white">Santrakids.com</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="bg-white text-blue-800 text-xs px-2 py-1 rounded">Şimdi giriş yap</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE: Sticky Navbar with Burger (replaces mobile breadcrumb) -->
+        <div class="lg:hidden fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+            <div class="px-4 py-2 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <img src="https://placehold.co/28x28/F7931E/ECECEC?text=SK" alt="SK" class="h-7 w-7 rounded-full">
+                    <span class="font-semibold text-gray-800">Santrakids</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="mobileMenuBtn" aria-label="Menüyü Aç/Kapat" aria-expanded="false"
+                            class="p-2 rounded hover:bg-gray-100">
+                        <!-- Simple burger icon -->
+                        <svg id="burgerIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collapsible mobile menu -->
+            <nav id="mobileMenu" class="hidden border-t border-gray-200 bg-white"><div class="px-4 py-3">
+                    <div class="mb-3">
+                        <label for="mobileSearch" class="sr-only">Arama</label>
+                        <div class="relative">
+                            <input id="mobileSearch" type="search" placeholder="Ara..."
+                                   class="w-full border rounded-md py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <span class="absolute left-2 top-1/2 -translate-y-1/2">🔍</span>
+                        </div>
+                    </div>
+                    <ul class="grid grid-cols-1 gap-2 text-sm font-medium text-gray-700">
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">KEŞFET</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">TRANSFERLER VE SÖYLENTİLER</a></li>
+                    </ul>
+                    <div class="mt-3 flex items-center gap-3">
+                        <a href="#" class="flex-1 text-center rounded-md bg-indigo-600 text-white px-3 py-2">Giriş Yap</a>
+                        <a href="#" class="flex-1 text-center rounded-md border border-gray-300 px-3 py-2">Kayıt Ol</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+    </header>
+
+    <main class="flex-1 container mx-auto my-4 px-0 pt-14 lg:pt-0 grid grid-cols-1 gap-6" >
+
+        <!-- Club Admin Panel Section -->
+       <section id="club-admin-panel" class="my-1 p-4 md:p-8 profile-section">
+            <h2 class="text-center mb-8">Kulüp Yönetim Paneli: Aslan Spor</h2>
+       </section>
+    </main>
+
+    <!-- Alt Bilgi (Basit) -->
+    <footer class="mt-auto bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto text-center text-sm text-gray-400">
+            <p>&copy; 2025 Santrakids.com. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- LLM demo (as in original) ---
+        const playerDescriptionTextarea = document.getElementById('playerDescription');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const analysisResultDiv = document.getElementById('analysisResult');
+
+        if (analyzeButton) {
+            analyzeButton.addEventListener('click', async () => {
+                const promptInput = playerDescriptionTextarea.value.trim();
+                if (!promptInput) {
+                    analysisResultDiv.innerHTML = '<p class="text-red-400">Lütfen oyuncu özelliklerini girin.</p>';
+                    return;
+                }
+                loadingIndicator.style.display = 'block';
+                analyzeButton.disabled = true;
+                analysisResultDiv.innerHTML = '';
+
+                let chatHistory = [];
+                chatHistory.push({
+                    role: "user",
+                    parts: [{ text: `Aşağıda özellikleri verilen genç futbolcunun potansiyelini, güçlü ve zayıf yönlerini, gelişmesi gereken alanları ve genel bir scout raporu şeklinde 100 kelime civarında analiz et. Profesyonel ve teşvik edici bir dil kullan. Türk futbolu bağlamında değerlendirebilirsin. Oyuncu özellikleri: ${promptInput}` }]
+                });
+
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`API hatası: ${response.status} ${response.statusText}`);
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        analysisResultDiv.innerHTML = `<p>${text}</p>`;
+                    } else {
+                        analysisResultDiv.innerHTML = '<p class="text-red-400">Analiz oluşturulamadı. Lütfen farklı bir giriş deneyin.</p>';
+                    }
+                } catch (error) {
+                    analysisResultDiv.innerHTML = `<p class="text-red-400">Bir hata oluştu: ${error.message}</p>`;
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    analyzeButton.disabled = false;
+                }
+            });
+        }
+
+        // --- Mobile burger menu ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const burgerIcon = document.getElementById('burgerIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        function toggleMobileMenu(forceState) {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            const next = typeof forceState === 'boolean' ? forceState : !isOpen;
+
+            mobileMenu.classList.toggle('hidden', !next);
+            burgerIcon.classList.toggle('hidden', next);
+            closeIcon.classList.toggle('hidden', !next);
+            mobileMenuBtn.setAttribute('aria-expanded', String(next));
+            document.body.classList.toggle('overflow-hidden', next); // prevent background scroll when open
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+        }
+        // Close when clicking a link
+        mobileMenu?.querySelectorAll('a')?.forEach(a => {
+            a.addEventListener('click', () => toggleMobileMenu(false));
+        });
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn?.contains(e.target) && !mobileMenu?.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) toggleMobileMenu(false);
+            }
+        });
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) toggleMobileMenu(false);
+        });
+    </script>
+</body>
+
+</html>

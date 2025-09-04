@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santrakids.com - Futbol Portalı ve Proje Sunumu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./mainpage.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+        <!-- Top Header Bar -->
+    <!-- HEADER -->
+    <header>
+
+        <!-- Desktop: Top Header Bar -->
+        <div class="header-bg text-white text-sm py-1 hidden lg:block">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <div class="flex items-center space-x-2">
+                    <img src="https://placehold.co/30x30/F7931E/ECECEC?text=SK" alt="Santrakids Logo"
+                        class="h-6 w-6 object-cover rounded-full">
+                    <a href="#" class="text-white">Santrakids.com</a>
+                    <span class="text-xs text-gray-300">|</span>
+                    <a href="#" class="text-white">CANLI</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Arama"
+                            class="bg-transparent border-b border-gray-400 text-white placeholder-gray-300 focus:outline-none focus:border-white text-sm pb-1">
+                        <span class="absolute right-0 top-0.5 text-gray-300">🔍</span>
+                    </div>
+                    <span class="icon">👤</span>
+                    <span class="icon">⚙️</span>
+                    <span class="icon">🔔</span>
+                    <span class="icon">✉️</span>
+                    <span class="icon">💬</span>
+                    <span class="icon">📈</span>
+                    <a href="#" class="bg-white text-blue-800 text-xs px-2 py-1 rounded">Şimdi giriş yap</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop: Main Navigation Bar -->
+        <div class="nav-bg text-white py-2 shadow-md hidden lg:block">
+            <div class="container mx-auto flex items-center justify-between px-4 text-sm font-medium">
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-300">KEŞFET</a>
+                    <a href="#" class="hover:text-gray-300">TRANSFERLER VE SÖYLENTİLER</a>
+                    <a href="#" class="hover:text-gray-300">PİYASA DEĞERLERİ</a>
+                    <a href="#" class="hover:text-gray-300">MÜSABAKALAR</a>
+                    <a href="#" class="hover:text-gray-300">İSTATİSTİKLER</a>
+                    <a href="#" class="hover:text-gray-300">TOPLULUK</a>
+                    <a href="#" class="hover:text-gray-300">OYUNLAR</a>
+                    <a href="#" class="hover:text-gray-300">SPORCU KARTI</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop: Breadcrumbs -->
+        <div class="bg-gray-100 py-2 border-b border-gray-200 hidden lg:block">
+            <div class="container mx-auto flex items-center space-x-2 px-4 text-sm text-gray-600">
+                <span class="icon">🏠</span>
+                <span class="text-gray-400">›</span>
+                <div class="flex items-center space-x-1">
+                    <span class="icon">🇹🇷</span><span>Türkiye</span><span class="icon">▼</span>
+                </div>
+                <span class="text-gray-400">›</span>
+                <div class="flex items-center space-x-1">
+                    <span class="icon">⚽</span><span>Müsabaka</span><span class="icon">▼</span>
+                </div>
+                <span class="text-gray-400">›</span>
+                <div class="flex items-center space-x-1">
+                    <span class="icon">👕</span><span>Kulüp</span><span class="icon">▼</span>
+                </div>
+                <span class="text-gray-400">›</span>
+                <div class="flex items-center space-x-1">
+                    <span class="icon">🧑‍🤝‍🧑</span><span>Oyuncu</span><span class="icon">▼</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE: Sticky Navbar with Burger (replaces mobile breadcrumb) -->
+        <div class="lg:hidden fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+            <div class="px-4 py-2 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <img src="https://placehold.co/28x28/F7931E/ECECEC?text=SK" alt="SK" class="h-7 w-7 rounded-full">
+                    <span class="font-semibold text-gray-800">Santrakids</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="mobileMenuBtn" aria-label="Menüyü Aç/Kapat" aria-expanded="false"
+                            class="p-2 rounded hover:bg-gray-100">
+                        <!-- Simple burger icon -->
+                        <svg id="burgerIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collapsible mobile menu -->
+            <nav id="mobileMenu" class="hidden border-t border-gray-200 bg-white"><div class="px-4 py-3">
+                    <div class="mb-3">
+                        <label for="mobileSearch" class="sr-only">Arama</label>
+                        <div class="relative">
+                            <input id="mobileSearch" type="search" placeholder="Ara..."
+                                   class="w-full border rounded-md py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <span class="absolute left-2 top-1/2 -translate-y-1/2">🔍</span>
+                        </div>
+                    </div>
+                    <ul class="grid grid-cols-1 gap-2 text-sm font-medium text-gray-700">
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">KEŞFET</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">TRANSFERLER VE SÖYLENTİLER</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">PİYASA DEĞERLERİ</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">MÜSABAKALAR</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">İSTATİSTİKLER</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">TOPLULUK</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">OYUNLAR</a></li>
+                        <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">SPORCU KARTI</a></li>
+                    </ul>
+                    <div class="mt-3 flex items-center gap-3">
+                        <a href="#" class="flex-1 text-center rounded-md bg-indigo-600 text-white px-3 py-2">Giriş Yap</a>
+                        <a href="#" class="flex-1 text-center rounded-md border border-gray-300 px-3 py-2">Kayıt Ol</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    
+    <!-- Main Content Area (3 Column Layout) -->
+    <main class="flex-1 container mx-auto my-4 px-4 pt-14 lg:pt-0 grid grid-cols-1 gap-6 lg:[grid-template-columns:280px_1fr_280px]">    
+                <!-- Middle Main Content -->
+        <article class="content-bg p-1 md:p-4 rounded-lg lg:col-start-2 lg:row-start-1">
+            <!-- Agenda / News Tabs -->
+            <!-- <div class="flex border-b border-gray-300 mb-6"> -->
+            <!-- <div class="flex border-b border-gray-300 mb-6 gap-2 flex-wrap md:flex-nowrap  "> -->
+            <div class="flex border-b border-gray-300 mb-6 text-[clamp(8px,2.3vw,16px)]">
+            <!-- <div class="flex border-b border-gray-300 mb-6 gap-2 overflow-x-auto md:overflow-visible whitespace-nowrap " > -->
+                <button class="px-4 py-2 text-dark-blue border-b-2 border-dark-blue font-semibold">GÜNDEM</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Önemliler</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Günün haberleri</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Günün karşılaşmaları</button>
+                <button class="px-4 py-2 text-gray-600 hover:text-dark-blue">Transfer rekorları</button>
+            </div>
+    
+            <!-- Main News Card -->
+            <div class="card-bg-light rounded-lg shadow-md mb-6 overflow-hidden">
+                <div class="relative">
+                    <img src="https://placehold.co/700x400/1a237e/ffffff?text=Bahce+Spor+Klubu+Oyuncusu"
+                        alt="Bahçe Spor Kulübü Oyuncusu" class="w-full h-auto object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 text-white">
+                        <div class="flex items-center mb-2">
+                            <img src="https://placehold.co/40x40/4CAF50/ffffff?text=BS" alt="Kulüp Logo"
+                                class="w-10 h-10 rounded-full mr-2 border border-white">
+                            <span class="text-xl font-bold">BAHÇE SPOR KULÜBÜ</span>
+                            <span class="ml-auto text-sm bg-gray-700 px-2 py-1 rounded-full opacity-80">07</span>
+                        </div>
+                        <h3 class="text-2xl font-bold">ORTA SAHA HARABEYİ</h3>
+                        <p class="text-lg font-semibold mt-2">Fenerbahçe, Edson Álvarez için görüşmelere başladı -
+                            Mourinho'nun özel talebi</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Bottom News Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-bg-light rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/300x200/FFD600/1F2937?text=Transfer+Soylentileri"
+                        alt="Transfer Söylentileri" class="w-full h-auto object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center text-red-highlight text-xs font-semibold mb-2">
+                            <span class="icon mr-1">🔄</span> TRANSFER SÖYLENTİLERİ
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Kimin hangi takıma transfer olacağı? Tüm güncel transfer
+                            söylentileri</h4>
+                    </div>
+                </div>
+                <div class="card-bg-light rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/300x200/00E5FF/1F2937?text=Son+Transferler" alt="Son Transferler"
+                        class="w-full h-auto object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center text-light-blue text-xs font-semibold mb-2">
+                            <span class="icon mr-1">🆕</span> SON TRANSFERLER
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Türkiye ve dünyada biten tüm transferlere göz at</h4>
+                    </div>
+                </div>
+                <div class="card-bg-light rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/300x200/FF3D00/1F2937?text=Transfer+Karlari" alt="Transfer Karları"
+                        class="w-full h-auto object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center text-orange-600 text-xs font-semibold mb-2">
+                            <span class="icon mr-1">💰</span> TRANSFER KARLARI
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Kulüplerin en çok kazanç sağladığı transferler</h4>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Left Sidebar -->
+        <aside class="sidebar-bg p-1 md:p-4 rounded-lg lg:col-start-1 lg:row-start-1">
+            <!-- Player Potential Analysis Tool -->
+            <div class="llm-feature-card">
+                <h2>✨ Oyuncu Potansiyeli Analiz Aracı ✨</h2>
+                <p class="text-gray-400 text-sm mb-3">Aşağıya genç bir futbolcunun özelliklerini (yaş, mevkii, fiziksel,
+                    teknik ve mental nitelikler) yazın, yapay zeka potansiyelini analiz etsin.</p>
+                <textarea id="playerDescription"
+                    placeholder="Örnek: 10 yaşında, forvet, çok hızlı ve şutları güçlü, pasları geliştirmeli, liderlik özellikleri var."></textarea>
+                <button id="analyzeButton">Analiz Et</button>
+                <div id="loadingIndicator" class="loading-indicator">Yapay zeka analiz ediyor...</div>
+                <div id="analysisResult" class="analysis-result"></div>
+            </div>
+    
+            <!-- "En Popüler Haberler" moved here from Right Sidebar -->
+            <h3 class="font-bold text-lg mb-4 text-dark-blue mt-6">En Popüler Haberler</h3>
+            <div class="card-bg-light rounded-lg shadow-sm p-3 mb-4">
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li><a href="#" class="hover:underline">1. Fenerbahçe'nin Yeni Stoperi Belli Oldu</a></li>
+                    <li><a href="#" class="hover:underline">2. Genç Kaleci Performansıyla Göz Doldurdu</a></li>
+                    <li><a href="#" class="hover:underline">3. Süper Lig'de Haftanın En İyi 11'i</a></li>
+                </ul>
+            </div>
+        </aside>
+    
+        <!-- Right Sidebar -->
+        <aside class="sidebar-bg p-1 md:p-4 rounded-lg lg:col-start-3 lg:row-start-1">
+            <h3 class="font-bold text-lg mb-4 text-dark-blue">DİGİTAL LİG 2023-2024</h3>
+            <div class="card-bg-light rounded-lg shadow-sm p-3 mb-4">
+                <p class="text-sm font-semibold mb-2 text-dark-blue">En Popüler Haberler</p>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li><a href="#" class="hover:underline">1. Fenerbahçe'nin Yeni Stoperi Belli Oldu</a></li>
+                    <li><a href="#" class="hover:underline">2. Genç Kaleci Performansıyla Göz Doldurdu</a></li>
+                    <li><a href="#" class="hover:underline">3. Süper Lig'de Haftanın En İyi 11'i</a></li>
+                </ul>
+            </div>
+    
+            <div class="w-full bg-gray-200 h-48 flex-center text-gray-500 rounded-lg mb-6">
+                <img src="https://placehold.co/250x200/cccccc/444444?text=Reklam+Alani" alt="Reklam Alanı"
+                    class="w-full h-full object-cover rounded-lg">
+                <div class="absolute text-center bg-black bg-opacity-50 p-2 rounded">
+                    <p class="text-white text-sm">Dacia Sandero Stepway</p>
+                    <p class="text-xs text-gray-300">Yeni maceralara atıl</p>
+                </div>
+            </div>
+    
+            <h3 class="font-bold text-lg mb-4 text-dark-blue flex items-center justify-between">
+                <span>EN ÇOK TANINAN PROFİLLER</span>
+                <div class="flex space-x-2 text-gray-500">
+                    <button class="bg-gray-100 p-1 rounded-full hover:bg-gray-200">⬅️</button>
+                    <button class="bg-gray-100 p-1 rounded-full hover:bg-gray-200">➡️</button>
+                </div>
+            </h3>
+            <ul class="space-y-3">
+                <li class="flex items-center card-bg-light p-2 rounded-md shadow-sm">
+                    <span class="font-bold text-lg mr-2 text-dark-blue">#1</span>
+                    <img src="https://placehold.co/50x50/3498db/ffffff?text=D.Nene" alt="D. Nene Profil"
+                        class="w-12 h-12 rounded-full mr-3 object-cover">
+                    <div>
+                        <p class="font-semibold text-gray-800">D. Nene</p>
+                        <p class="text-xs text-gray-600">Piyasa değeri: <span class="text-green-600">12.00 mil. €</span>
+                        </p>
+                        <p class="text-xs text-gray-500">Salzburg</p>
+                    </div>
+                </li>
+                <li class="flex items-center card-bg-light p-2 rounded-md shadow-sm">
+                    <span class="font-bold text-lg mr-2 text-dark-blue">#2</span>
+                    <img src="https://placehold.co/50x50/2ecc71/ffffff?text=M.Diouf" alt="M. Diouf Profil"
+                        class="w-12 h-12 rounded-full mr-3 object-cover">
+                    <div>
+                        <p class="font-semibold text-gray-800">M. Diouf</p>
+                        <p class="text-xs text-gray-600">Piyasa değeri: <span class="text-green-600">8.50 mil. €</span>
+                        </p>
+                        <p class="text-xs text-gray-500">St. Pauli</p>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+    
+    </main>
+    
+   
+    
+
+    <!-- Alt Bilgi (Basit) -->
+    <footer class="mt-auto bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto text-center text-sm text-gray-400">
+            <p>&copy; 2025 Santrakids.com. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- LLM demo (as in original) ---
+        const playerDescriptionTextarea = document.getElementById('playerDescription');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const analysisResultDiv = document.getElementById('analysisResult');
+
+        if (analyzeButton) {
+            analyzeButton.addEventListener('click', async () => {
+                const promptInput = playerDescriptionTextarea.value.trim();
+                if (!promptInput) {
+                    analysisResultDiv.innerHTML = '<p class="text-red-400">Lütfen oyuncu özelliklerini girin.</p>';
+                    return;
+                }
+                loadingIndicator.style.display = 'block';
+                analyzeButton.disabled = true;
+                analysisResultDiv.innerHTML = '';
+
+                let chatHistory = [];
+                chatHistory.push({
+                    role: "user",
+                    parts: [{ text: `Aşağıda özellikleri verilen genç futbolcunun potansiyelini, güçlü ve zayıf yönlerini, gelişmesi gereken alanları ve genel bir scout raporu şeklinde 100 kelime civarında analiz et. Profesyonel ve teşvik edici bir dil kullan. Türk futbolu bağlamında değerlendirebilirsin. Oyuncu özellikleri: ${promptInput}` }]
+                });
+
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`API hatası: ${response.status} ${response.statusText}`);
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        analysisResultDiv.innerHTML = `<p>${text}</p>`;
+                    } else {
+                        analysisResultDiv.innerHTML = '<p class="text-red-400">Analiz oluşturulamadı. Lütfen farklı bir giriş deneyin.</p>';
+                    }
+                } catch (error) {
+                    analysisResultDiv.innerHTML = `<p class="text-red-400">Bir hata oluştu: ${error.message}</p>`;
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    analyzeButton.disabled = false;
+                }
+            });
+        }
+
+        // --- Mobile burger menu ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const burgerIcon = document.getElementById('burgerIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        function toggleMobileMenu(forceState) {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            const next = typeof forceState === 'boolean' ? forceState : !isOpen;
+
+            mobileMenu.classList.toggle('hidden', !next);
+            burgerIcon.classList.toggle('hidden', next);
+            closeIcon.classList.toggle('hidden', !next);
+            mobileMenuBtn.setAttribute('aria-expanded', String(next));
+            document.body.classList.toggle('overflow-hidden', next); // prevent background scroll when open
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+        }
+        // Close when clicking a link
+        mobileMenu?.querySelectorAll('a')?.forEach(a => {
+            a.addEventListener('click', () => toggleMobileMenu(false));
+        });
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn?.contains(e.target) && !mobileMenu?.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) toggleMobileMenu(false);
+            }
+        });
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) toggleMobileMenu(false);
+        });
+    </script>
+</body>
+</html>

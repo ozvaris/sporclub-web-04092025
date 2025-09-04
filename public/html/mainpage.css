@@ -1,0 +1,455 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e0e6ed;
+    color: #333;
+}
+
+.header-bg {
+    background-color: #1a237e;
+}
+
+.nav-bg {
+    background-color: #283593;
+}
+
+.sidebar-bg {
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.content-bg {
+    background-color: #f7f9fc;
+}
+
+.card-bg-light {
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.text-dark-blue {
+    color: #1a237e;
+}
+
+.text-medium-blue {
+    color: #283593;
+}
+
+.text-light-blue {
+    color: #42a5f5;
+}
+
+.text-red-highlight {
+    color: #ef5350;
+}
+
+.border-gray-light {
+    border-color: #d1d5db;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .main-grid {
+        grid-template-columns: 280px 1fr 280px;
+    }
+}
+
+/* LLM Feature Card Styles */
+.llm-feature-card {
+    background-color: #1F2937;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #F3F4F6;
+    margin-bottom: 24px;
+}
+
+.llm-feature-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00E5FF;
+    margin-bottom: 15px;
+    text-shadow: 0 0 3px rgba(0, 229, 255, 0.5);
+}
+
+.llm-feature-card textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #4B5563;
+    background-color: #374151;
+    color: #F3F4F6;
+    font-size: 0.9rem;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+.llm-feature-card button {
+    background: linear-gradient(90deg, #00E5FF, #004FFF);
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 229, 255, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: none;
+    width: auto;
+    display: inline-block;
+}
+
+.llm-feature-card button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 229, 255, 0.4);
+}
+
+.loading-indicator {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #00E5FF;
+    display: none;
+}
+
+.analysis-result {
+    margin-top: 15px;
+    background-color: #2D3748;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #4B5563;
+    color: #F3F4F6;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Club/Player/Manager Profile Common Styles */
+.profile-section,
+.presentation-section {
+    /* Added .presentation-section */
+    background-color: #f7f9fc;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+.profile-section h2,
+.presentation-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #d1d5db;
+    padding-bottom: 0.5rem;
+}
+
+.profile-section h3,
+.presentation-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #283593;
+    margin-bottom: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    color: #4a5568;
+}
+
+.detail-item span {
+    margin-left: 0.5rem;
+}
+
+.img-placeholder {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-management {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.card-management img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+}
+
+.kpi-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1a237e;
+}
+
+.kpi-label {
+    font-size: 0.9rem;
+    color: #4a5568;
+    margin-top: 0.25rem;
+}
+
+.action-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #218838;
+}
+
+.stat-bar-container {
+    background-color: #e0e6ed;
+    border-radius: 4px;
+    height: 8px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.stat-bar {
+    height: 100%;
+    border-radius: 4px;
+    background-color: #283593;
+    /* Blue */
+    width: 75%;
+    /* Example value */
+}
+
+/* NFT Collection / Album specific styles */
+.nft-collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.nft-item {
+    width: 80px;
+    height: 110px;
+    background-color: #e0e6ed;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.nft-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nft-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 0.8rem;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.nft-item:hover .nft-item-overlay {
+    opacity: 1;
+}
+
+/* Presentation Section Specific Styles */
+.presentation-section h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    color: #1a237e;
+    /* Dark Blue */
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #283593;
+    /* Medium Blue */
+}
+
+.presentation-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #283593;
+    /* Medium Blue */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #d1d5db;
+    padding-bottom: 0.5rem;
+}
+
+.presentation-section h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1a237e;
+    /* Dark Blue */
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.presentation-section p,
+.presentation-section ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    /* Grayish text */
+    margin-bottom: 1rem;
+}
+
+.presentation-section ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 1rem;
+}
+
+.presentation-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.presentation-section strong {
+    color: #1a237e;
+}
+
+.presentation-slide {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.presentation-slide h3 {
+    font-size: 1.8rem;
+    color: #1a237e;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.presentation-slide h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #42a5f5;
+    border-radius: 2px;
+}
+
+.presentation-slide .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .presentation-slide .content-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .presentation-slide .content-grid.reverse-order {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .presentation-slide .content-grid.reverse-order div:first-child {
+        order: 2;
+        /* Move text to right */
+    }
+
+    .presentation-slide .content-grid.reverse-order div:last-child {
+        order: 1;
+        /* Move image to left */
+    }
+}
+
+.presentation-slide ul {
+    list-style-type: none;
+    /* Remove default bullets */
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.presentation-slide ul li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #333;
+    font-size: 1.05rem;
+}
+
+.presentation-slide ul li::before {
+    content: '✅';
+    /* Custom bullet point */
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-size: 1rem;
+    top: 2px;
+}
+
+.presentation-slide img.feature-image {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.presentation-slide .section-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}

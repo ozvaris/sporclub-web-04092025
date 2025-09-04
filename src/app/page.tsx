@@ -12,7 +12,7 @@ import { toProductParams, type SearchParams } from '@/features/products/params';
 import { PRODUCTS_PER_PAGE } from '@/features/products/constants';
 
 export const metadata = {
-  title: "Talenty Shop",
+  title: "Talenty",
   description: "Vitrin — sayfalama destekli ürün listesi",
 };
 
@@ -43,7 +43,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
   return (
     <HydrationBoundary state={state}>
       <Header />
-      <main className="container max-w-screen-xl mx-auto px-4 md:px-6">
+      <main className="container max-w-screen-xl py-1 lg:p-4 mx-auto px-4 md:px-6">
         <Carousel 
         slides={slides}
         autoPlay 

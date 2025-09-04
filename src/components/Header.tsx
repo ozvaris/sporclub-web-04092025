@@ -39,7 +39,7 @@ export default function Header() {
             className="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl"
           >
             <Image
-              src="http://localhost:3000/media/dev-images/image1.jpg"           // public/icons/soccer-player.png
+              src="http://localhost:3000/media/dev-images/logo1.png"           // public/icons/soccer-player.png
               alt="Ayağında top tutan futbolcu ikon"
               width={24}
               height={24}
@@ -60,7 +60,15 @@ export default function Header() {
                 href="/"
                 className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
               >
-                Shop
+                Al-Sat
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/"
+                className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+              >
+                Klüpler
               </Link>
             </li>
             <li>
@@ -68,7 +76,7 @@ export default function Header() {
                 href="#about"
                 className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
               >
-                About
+                Oyuncular
               </Link>
             </li>
 
@@ -92,7 +100,7 @@ export default function Header() {
                     onClick={logout}
                     className="inline-block no-underline hover:text-red-600 py-2 px-4"
                   >
-                    Logout
+                    Çıkış
                   </button>
                 </li>
               </>
@@ -102,7 +110,7 @@ export default function Header() {
                   href="/login"
                   className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
                 >
-                  Login
+                  Giriş
                 </Link>
               </li>
             )}
