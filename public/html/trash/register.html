@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kayıt Ol | Santrakids</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Opsiyonel: clubadmin sayfasındaki yardımcı sınıfları da almak isterseniz bu dosyayı ekleyin -->
+  <link rel="stylesheet" href="./mainpage.css">
+  <style>
+    :root{
+      --brand-orange:#F7931E;
+      --brand-blue:#004FFF;
+      --brand-blue-600:#1e40af;
+    }
+    /* body{ font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; } */
+    /* clubadmin.html’de kullanılan benzer görünümler için ufak yardımcılar */
+    /* .header-bg{ background: linear-gradient(90deg, var(--brand-blue), #1f2937); } mavi → koyu gri */
+    /* .text-dark-blue{ color: var(--brand-blue); } */
+    /* .card-bg-light{ background: #f8fafc; } slate-50 */
+    /* .action-btn{ background: var(--brand-orange); color:#fff; border-radius: .5rem; padding:.5rem .75rem; } */
+    /* .profile-section h2, .profile-section h3{ color: var(--brand-blue); font-weight:700; } */
+    /* Form özel dokunuşları */
+    .brand-ring:focus{ outline: none; box-shadow: 0 0 0 4px rgba(247,147,30,.25); border-color: var(--brand-orange); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-white">
+  <!-- HEADER -->
+  <header>
+    <!-- Desktop: Top Header Bar -->
+    <div class="header-bg text-white text-sm py-1 hidden lg:block">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <div class="flex items-center space-x-2">
+          <img src="https://placehold.co/30x30/F7931E/ECECEC?text=SK" alt="Santrakids Logo" class="h-6 w-6 object-cover rounded-full">
+          <a href="#" class="text-white">Santrakids.com</a>
+          <span class="text-xs text-gray-300">|</span>
+          <a href="#" class="text-white">CANLI</a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input type="text" placeholder="Arama"
+              class="bg-transparent border-b border-gray-400 text-white placeholder-gray-300 focus:outline-none focus:border-white text-sm pb-1">
+            <span class="absolute right-0 top-0.5 text-gray-300">🔍</span>
+          </div>
+          <span class="icon">👤</span>
+          <span class="icon">⚙️</span>
+          <span class="icon">🔔</span>
+          <span class="icon">✉️</span>
+          <span class="icon">💬</span>
+          <span class="icon">📈</span>
+          <a href="#" class="bg-white text-blue-800 text-xs px-2 py-1 rounded">Giriş yap</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE: Sticky Navbar with Burger -->
+    <div class="lg:hidden fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+      <div class="px-4 py-2 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="https://placehold.co/28x28/F7931E/ECECEC?text=SK" alt="SK" class="h-7 w-7 rounded-full">
+          <span class="font-semibold text-gray-800">Santrakids</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="mobileMenuBtn" aria-label="Menüyü Aç/Kapat" aria-expanded="false"
+                  class="p-2 rounded hover:bg-gray-100">
+            <svg id="burgerIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav id="mobileMenu" class="hidden border-t border-gray-200 bg-white">
+        <div class="px-4 py-3">
+          <div class="mb-3">
+            <label for="mobileSearch" class="sr-only">Arama</label>
+            <div class="relative">
+              <input id="mobileSearch" type="search" placeholder="Ara..."
+                  class="w-full border rounded-md py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <span class="absolute left-2 top-1/2 -translate-y-1/2">🔍</span>
+            </div>
+          </div>
+          <ul class="grid grid-cols-1 gap-2 text-sm font-medium text-gray-700">
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">KEŞFET</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">TRANSFERLER VE SÖYLENTİLER</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">PİYASA DEĞERLERİ</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">MÜSABAKALAR</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">İSTATİSTİKLER</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">TOPLULUK</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">OYUNLAR</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">SPORCU KARTI</a></li>
+          </ul>
+          <div class="mt-3 flex items-center gap-3">
+            <a href="#" class="flex-1 text-center rounded-md bg-indigo-600 text-white px-3 py-2">Giriş Yap</a>
+            <a href="#" class="flex-1 text-center rounded-md border border-gray-300 px-3 py-2">Kayıt Ol</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-1 container mx-auto px-4 pt-14 lg:pt-12 pb-10">
+    <section class="max-w-xl mx-auto mt-8 md:mt-14">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Hesap Oluştur</h1>
+        <p class="text-gray-600 mt-2">Kulüp yönetim paneline erişmek için kayıt olun.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg ring-1 ring-gray-100 p-6 md:p-8">
+        <!-- Info -->
+        <div class="mb-6 p-4 rounded-lg card-bg-light">
+          <p class="text-sm text-gray-700">
+            <strong>Not:</strong> <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">users</code> tablosundaki
+            <em>user.entity.ts</em> alanlarına göre <span class="font-medium">e‑posta</span> ve
+            <span class="font-medium">şifre</span> zorunludur. Durum varsayılan olarak <span class="font-mono">active</span> atanır.
+          </p>
+        </div>
+
+        <form id="registerForm" class="grid grid-cols-1 gap-4" novalidate>
+          <!-- OPTIONAL: İsim - entity’de yoksa backend yoksayar -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Ad Soyad (opsiyonel)</label>
+            <input id="name" name="name" type="text" autocomplete="name"
+              class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 brand-ring"
+              placeholder="Örn. Ali Durmuş">
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">E‑posta</label>
+            <input id="email" name="email" type="email" required autocomplete="email"
+              class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 brand-ring"
+              placeholder="ornek@mail.com">
+            <p id="emailErr" class="mt-1 text-xs text-red-600 hidden">Geçerli bir e‑posta giriniz.</p>
+          </div>
+
+          <div class="relative">
+            <label for="password" class="block text-sm font-medium text-gray-700">Şifre</label>
+            <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password"
+              class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 brand-ring"
+              placeholder="En az 8 karakter">
+            <button type="button" id="togglePass" class="absolute right-2 top-9 text-gray-500 hover:text-gray-700"
+                aria-label="Şifreyi göster/gizle">👁️</button>
+            <p class="mt-1 text-xs text-gray-500">En az 8 karakter, harf ve rakam önerilir.</p>
+          </div>
+
+          <div class="relative">
+            <label for="passwordConfirm" class="block text-sm font-medium text-gray-700">Şifre (Tekrar)</label>
+            <input id="passwordConfirm" name="passwordConfirm" type="password" required autocomplete="new-password"
+              class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 brand-ring"
+              placeholder="Şifreyi tekrar girin">
+            <button type="button" id="togglePass2" class="absolute right-2 top-9 text-gray-500 hover:text-gray-700"
+                aria-label="Şifreyi göster/gizle">👁️</button>
+            <p id="passMatchErr" class="mt-1 text-xs text-red-600 hidden">Şifreler uyuşmuyor.</p>
+          </div>
+
+          <!-- status: Varsayılan active -->
+          <input type="hidden" name="status" value="active"/>
+
+          <div class="flex items-start gap-3">
+            <input id="terms" type="checkbox" class="mt-1" required />
+            <label for="terms" class="text-sm text-gray-700">Kullanım koşullarını kabul ediyorum.</label>
+          </div>
+
+          <button id="submitBtn" type="submit"
+            class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--brand-orange)] text-white px-4 py-2 font-medium hover:opacity-95 disabled:opacity-60 disabled:cursor-not-allowed">
+            <span id="btnText">Kayıt Ol</span>
+            <svg id="btnSpinner" class="animate-spin h-4 w-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+          </button>
+
+          <p class="text-sm text-gray-600">Zaten hesabınız var mı?
+            <a class="font-medium text-[var(--brand-blue)] hover:underline" href="/login">Giriş Yapın</a>
+          </p>
+        </form>
+
+        <!-- Sonuç Mesajları -->
+        <div id="formMsg" class="mt-6 hidden">
+          <div id="formMsgSuccess" class="hidden rounded-lg bg-green-50 text-green-700 px-4 py-3 text-sm"></div>
+          <div id="formMsgError" class="hidden rounded-lg bg-red-50 text-red-700 px-4 py-3 text-sm"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-auto bg-gray-800 text-white py-6">
+    <div class="container mx-auto text-center text-sm text-gray-400">
+      <p>&copy; 2025 Santrakids.com. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- Mobile burger menu (clubadmin.html ile uyumlu) ---
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const burgerIcon = document.getElementById('burgerIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    function toggleMobileMenu(forceState) {
+      if(!mobileMenuBtn || !mobileMenu) return;
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      const next = typeof forceState === 'boolean' ? forceState : !isOpen;
+      mobileMenu.classList.toggle('hidden', !next);
+      burgerIcon?.classList.toggle('hidden', next);
+      closeIcon?.classList.toggle('hidden', !next);
+      mobileMenuBtn.setAttribute('aria-expanded', String(next));
+      document.body.classList.toggle('overflow-hidden', next);
+    }
+    mobileMenuBtn?.addEventListener('click', () => toggleMobileMenu());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) toggleMobileMenu(false);
+    });
+    document.addEventListener('click', (e) => {
+      if (!mobileMenuBtn?.contains(e.target) && !mobileMenu?.contains(e.target)) {
+        if (!mobileMenu?.classList.contains('hidden')) toggleMobileMenu(false);
+      }
+    });
+
+    // --- Register form logic ---
+    const form = document.getElementById('registerForm');
+    const email = document.getElementById('email');
+    const emailErr = document.getElementById('emailErr');
+    const pass = document.getElementById('password');
+    const pass2 = document.getElementById('passwordConfirm');
+    const passMatchErr = document.getElementById('passMatchErr');
+    const terms = document.getElementById('terms');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+    const msgWrap = document.getElementById('formMsg');
+    const msgOk = document.getElementById('formMsgSuccess');
+    const msgErr = document.getElementById('formMsgError');
+    const togglePass = document.getElementById('togglePass');
+    const togglePass2 = document.getElementById('togglePass2');
+
+    togglePass?.addEventListener('click', () => {
+      pass.type = pass.type === 'password' ? 'text' : 'password';
+    });
+    togglePass2?.addEventListener('click', () => {
+      pass2.type = pass2.type === 'password' ? 'text' : 'password';
+    });
+
+    function validateEmail(v){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+    function setLoading(isLoading){
+      submitBtn.disabled = isLoading;
+      btnSpinner.classList.toggle('hidden', !isLoading);
+      btnText.textContent = isLoading ? 'Kaydediliyor...' : 'Kayıt Ol';
+    }
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // Clear messages
+      msgWrap.classList.add('hidden'); msgOk.classList.add('hidden'); msgErr.classList.add('hidden');
+
+      // Basic validations
+      const emailValid = validateEmail(email.value.trim());
+      emailErr.classList.toggle('hidden', emailValid);
+      const passOk = pass.value.length >= 6;
+      const match = pass.value === pass2.value;
+      passMatchErr.classList.toggle('hidden', match);
+
+      if(!emailValid || !passOk || !match || !terms.checked){
+        msgWrap.classList.remove('hidden'); msgErr.classList.remove('hidden');
+        msgErr.textContent = 'Lütfen gerekli alanları doğru doldurunuz.';
+        return;
+      }
+
+      // Compose payload (entity: email, password, status default active; name opsiyonel)
+      const payload = {
+        email: email.value.trim(),
+        password: pass.value,
+        passwordConfirm: pass2.value,
+        status: 'active',
+      };
+      const nameInput = document.getElementById('name');
+      if(nameInput?.value.trim()) payload['name'] = nameInput.value.trim(); // backend yok sayabilir
+
+      try{
+        setLoading(true);
+        // BACKEND UYARISI:
+        // Aşağıdaki yolu kendi API’nize göre düzenleyin. Örnek: NestJS AuthController -> POST /auth/register
+        const API_BASE = 'http://localhost:4000'
+        const res = await fetch(API_BASE + '/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(()=>({}));
+
+        msgWrap.classList.remove('hidden');
+
+        if(res.ok){
+          msgOk.classList.remove('hidden');
+          msgOk.textContent = 'Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...';
+          // 1-2 sn sonra yönlendirme (opsiyonel)
+          setTimeout(()=> window.location.href = '/login', 1200);
+          form.reset();
+        }else{
+          msgErr.classList.remove('hidden');
+          msgErr.textContent = data?.message || 'Kayıt sırasında bir hata oluştu.';
+        }
+      }catch(err){
+        msgWrap.classList.remove('hidden'); msgErr.classList.remove('hidden');
+        msgErr.textContent = 'Sunucuya ulaşılamadı. Lütfen daha sonra tekrar deneyin.';
+      }finally{
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

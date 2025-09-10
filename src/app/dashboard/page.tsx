@@ -7,7 +7,7 @@ export default async function DashboardPage() {
   const access = (await cookies()).get('access')?.value;
   if (!access) redirect('/login');
 
-  const res = await fetch(process.env.BACKEND_URL + '/users/profile', {
+  const res = await fetch(process.env.BACKEND_URL + '/admin/users/profile', {
     headers: { Authorization: `Bearer ${access}` },
   });
   if (!res.ok) redirect('/login');

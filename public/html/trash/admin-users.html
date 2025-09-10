@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin | Kullanıcı Yönetimi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./mainpage.css">
+  <style>
+    :root{
+      --brand-orange:#F7931E;
+      --brand-blue:#004FFF;
+      --brand-blue-600:#1e40af;
+    }
+    body{ font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; }
+    .header-bg{ background: linear-gradient(90deg, var(--brand-blue), #1f2937); }
+    .brand-ring:focus{ outline: none; box-shadow: 0 0 0 4px rgba(247,147,30,.25); border-color: var(--brand-orange); }
+    .btn{ @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 font-medium; }
+    .btn-primary{ background:var(--brand-orange); color:#fff; }
+    .btn-secondary{ @apply border border-gray-300 bg-white; }
+    .btn-danger{ @apply bg-red-600 text-white; }
+    .badge{ @apply rounded-full px-2.5 py-0.5 text-xs font-medium; }
+    .badge-green{ @apply bg-green-100 text-green-700; }
+    .badge-gray{ @apply bg-gray-100 text-gray-700; }
+    .badge-yellow{ @apply bg-yellow-100 text-yellow-700; }
+    .badge-red{ @apply bg-red-100 text-red-700; }
+    .table-responsive{ overflow-x:auto; }
+    .modal-backdrop{ background: rgba(0,0,0,.45); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-white">
+  <!-- HEADER (clubadmin uyumlu) -->
+  <header>
+    <div class="header-bg text-white text-sm py-1 hidden lg:block">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <div class="flex items-center space-x-2">
+          <img src="https://placehold.co/30x30/F7931E/ECECEC?text=SK" alt="Santrakids Logo" class="h-6 w-6 object-cover rounded-full">
+          <a href="#" class="text-white">Santrakids.com</a>
+          <span class="text-xs text-gray-300">|</span>
+          <a href="#" class="text-white">CANLI</a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input type="text" placeholder="Arama"
+              class="bg-transparent border-b border-gray-400 text-white placeholder-gray-300 focus:outline-none focus:border-white text-sm pb-1">
+            <span class="absolute right-0 top-0.5 text-gray-300">🔍</span>
+          </div>
+          <span class="icon">👤</span>
+          <span class="icon">⚙️</span>
+          <span class="icon">🔔</span>
+          <span class="icon">✉️</span>
+          <span class="icon">💬</span>
+          <span class="icon">📈</span>
+          <a href="/login" class="bg-white text-blue-800 text-xs px-2 py-1 rounded">Çıkış</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE navbar -->
+    <div class="lg:hidden fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+      <div class="px-4 py-2 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="https://placehold.co/28x28/F7931E/ECECEC?text=SK" alt="SK" class="h-7 w-7 rounded-full">
+          <span class="font-semibold text-gray-800">Santrakids Admin</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="mobileMenuBtn" aria-label="Menüyü Aç/Kapat" aria-expanded="false"
+                  class="p-2 rounded hover:bg-gray-100">
+            <svg id="burgerIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav id="mobileMenu" class="hidden border-t border-gray-200 bg-white">
+        <div class="px-4 py-3">
+          <ul class="grid grid-cols-1 gap-2 text-sm font-medium text-gray-700">
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">Gösterge Paneli</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#" aria-current="page">Kullanıcılar</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">Roller &amp; Yetkiler</a></li>
+            <li><a class="block rounded px-3 py-2 hover:bg-gray-100" href="#">Kulüpler</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-1 container mx-auto px-4 pt-14 lg:pt-12 pb-10">
+    <section class="mt-6 md:mt-10">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Kullanıcı Yönetimi</h1>
+          <p class="text-gray-600">Admin yetkisi ile kullanıcıları onaylayın, düzenleyin veya silin.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="relative">
+            <input id="searchInput" type="search" placeholder="Ada / e‑postaya göre ara..." class="w-56 md:w-72 rounded-lg border border-gray-300 px-3 py-2 pr-9 brand-ring text-sm">
+            <span class="absolute right-2 top-1/2 -translate-y-1/2">🔍</span>
+          </div>
+          <button id="btnNew" class="btn btn-primary">+ Yeni Kullanıcı</button>
+        </div>
+      </div>
+
+      <!-- Cards: KPI -->
+      <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="rounded-2xl border border-gray-100 p-4">
+          <p class="text-sm text-gray-500">Toplam</p>
+          <p id="kpiTotal" class="mt-1 text-2xl font-bold">—</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 p-4">
+          <p class="text-sm text-gray-500">Aktif</p>
+          <p id="kpiActive" class="mt-1 text-2xl font-bold">—</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 p-4">
+          <p class="text-sm text-gray-500">Bekleyen</p>
+          <p id="kpiPending" class="mt-1 text-2xl font-bold">—</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 p-4">
+          <p class="text-sm text-gray-500">Pasif</p>
+          <p id="kpiInactive" class="mt-1 text-2xl font-bold">—</p>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="mt-6 rounded-2xl border border-gray-100 overflow-hidden">
+        <div class="table-responsive">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr class="text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">Ad</th>
+                <th class="px-4 py-3">E‑posta</th>
+                <th class="px-4 py-3">Durum</th>
+                <th class="px-4 py-3 text-right">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody id="tbody" class="divide-y divide-gray-100 bg-white">
+              <!-- filled by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between px-4 py-3 bg-gray-50">
+          <div class="text-sm text-gray-600">Sayfa <span id="pageNow">1</span> / <span id="pageTotal">1</span></div>
+          <div class="flex items-center gap-2">
+            <button id="btnPrev" class="btn btn-secondary text-sm disabled:opacity-50 disabled:cursor-not-allowed">&larr; Geri</button>
+            <button id="btnNext" class="btn btn-secondary text-sm disabled:opacity-50 disabled:cursor-not-allowed">İleri &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div id="emptyState" class="hidden mt-8 text-center text-gray-500">
+        Hiç kayıt bulunamadı.
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-auto bg-gray-800 text-white py-6">
+    <div class="container mx-auto text-center text-sm text-gray-400">
+      <p>&copy; 2025 Santrakids.com. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+
+  <!-- CREATE / EDIT MODAL -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center z-50">
+    <div class="modal-backdrop absolute inset-0"></div>
+    <div class="relative bg-white w-full max-w-lg mx-4 md:mx-auto rounded-2xl shadow-2xl ring-1 ring-gray-100">
+      <div class="flex items-center justify-between px-5 py-4 border-b">
+        <h3 id="modalTitle" class="text-lg font-semibold">Yeni Kullanıcı</h3>
+        <button id="modalClose" class="p-1.5 rounded hover:bg-gray-100" aria-label="Kapat">✖</button>
+      </div>
+      <form id="formUser" class="p-5 grid grid-cols-1 gap-4" novalidate>
+        <input type="hidden" id="userId"/>
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Ad Soyad (opsiyonel)</label>
+          <input id="name" name="name" type="text" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 brand-ring" placeholder="Örn. Ali Durmuş">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">E‑posta</label>
+          <input id="email" name="email" type="email" required class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 brand-ring" placeholder="ornek@mail.com">
+          <p id="emailErr" class="mt-1 text-xs text-red-600 hidden">Geçerli bir e‑posta giriniz.</p>
+        </div>
+        <div id="passwordWrap">
+          <label for="password" class="block text-sm font-medium text-gray-700">Şifre</label>
+          <input id="password" name="password" type="password" minlength="6" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 brand-ring" placeholder="En az 6 karakter">
+          <p id="passErr" class="mt-1 text-xs text-red-600 hidden">En az 6 karakter olmalı.</p>
+        </div>
+        <div>
+          <label for="status" class="block text-sm font-medium text-gray-700">Durum</label>
+          <select id="status" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 brand-ring">
+            <option value="active">active</option>
+            <option value="pending">pending</option>
+            <option value="inactive">inactive</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" id="btnCancel" class="btn btn-secondary">Vazgeç</button>
+          <button type="submit" id="btnSave" class="btn btn-primary">
+            <span id="btnSaveText">Kaydet</span>
+            <svg id="btnSaveSpinner" class="animate-spin h-4 w-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONFIRM DELETE -->
+  <div id="confirm" class="fixed inset-0 hidden items-center justify-center z-50">
+    <div class="modal-backdrop absolute inset-0"></div>
+    <div class="relative bg-white w-full max-w-md mx-4 md:mx-auto rounded-2xl shadow-2xl ring-1 ring-gray-100 p-5">
+      <h3 class="text-lg font-semibold mb-2">Silme Onayı</h3>
+      <p class="text-gray-600 text-sm mb-4">Bu kullanıcıyı silmek istediğinize emin misiniz?</p>
+      <div class="flex items-center justify-end gap-2">
+        <button id="confirmCancel" class="btn btn-secondary">Vazgeç</button>
+        <button id="confirmOk" class="btn btn-danger">Sil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div id="toast" class="fixed bottom-4 right-4 z-[60] space-y-2"></div>
+
+  <!-- Loading overlay -->
+  <div id="loading" class="fixed inset-0 hidden items-center justify-center z-40">
+    <div class="modal-backdrop absolute inset-0"></div>
+    <div class="relative bg-white rounded-xl shadow p-4">Yükleniyor...</div>
+  </div>
+
+  <script>
+    // --- Mobile menu (same as register page) ---
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const burgerIcon = document.getElementById('burgerIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    function toggleMobileMenu(forceState) {
+      if(!mobileMenuBtn || !mobileMenu) return;
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      const next = typeof forceState === 'boolean' ? forceState : !isOpen;
+      mobileMenu.classList.toggle('hidden', !next);
+      burgerIcon?.classList.toggle('hidden', next);
+      closeIcon?.classList.toggle('hidden', !next);
+      mobileMenuBtn.setAttribute('aria-expanded', String(next));
+      document.body.classList.toggle('overflow-hidden', next);
+    }
+    mobileMenuBtn?.addEventListener('click', () => toggleMobileMenu());
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) toggleMobileMenu(false); });
+    document.addEventListener('click', (e) => { if (!mobileMenuBtn?.contains(e.target) && !mobileMenu?.contains(e.target)) { if (!mobileMenu?.classList.contains('hidden')) toggleMobileMenu(false); }});
+
+    // --- Small helpers ---
+    const qs = (s, el=document) => el.querySelector(s);
+    const qsa = (s, el=document) => Array.from(el.querySelectorAll(s));
+    const toastWrap = qs('#toast');
+    function toast(msg, type='ok'){
+      const el = document.createElement('div');
+      el.className = 'rounded-xl shadow px-4 py-3 text-sm ' + (type==='ok' ? 'bg-green-600 text-white' : 'bg-red-600 text-white');
+      el.textContent = msg;
+      toastWrap.appendChild(el);
+      setTimeout(()=> el.remove(), 2500);
+    }
+    function setBusy(isBusy){
+      qs('#loading').classList.toggle('hidden', !isBusy);
+    }
+    function show(el){ el.classList.remove('hidden'); el.classList.add('flex'); }
+    function hide(el){ el.classList.add('hidden'); el.classList.remove('flex'); }
+
+    // --- API BASE (dev) ---
+    const API_BASE = 'http://localhost:4000';
+
+    // --- API CONFIG ---
+    const API = {
+      list: '/admin/users',            // GET ?search&limit&page
+      create: '/admin/users',          // POST
+      update: (id) => `/admin/users/${id}`, // PUT
+      remove: (id) => `/admin/users/${id}`, // DELETE
+      approve: (id) => `/admin/users/${id}/approve`, // POST (fallback: PUT status=active)
+    };
+
+    // Küçük yardımcı
+    const api = (pathOrBuilder, ...args) => {
+      const path = typeof pathOrBuilder === 'function' ? pathOrBuilder(...args) : pathOrBuilder;
+      return new URL(path, API_BASE).toString();
+    };
+
+    const PAGE_SIZE = 10;
+    let state = { page: 1, totalPages: 1, items: [], search: '' };
+    let deletingId = null;
+
+    function unwrapList(payload){
+      // Accepts: [..] or { data:[..], meta:{ total, page, limit } }
+      if(Array.isArray(payload)) return { data: payload, meta: { total: payload.length, page: 1, limit: payload.length }};
+      if(payload && Array.isArray(payload.data)) return { data: payload.data, meta: payload.meta || {} };
+      // Some APIs: {items, total, page, limit}
+      if(payload && Array.isArray(payload.items)) return { data: payload.items, meta: { total: payload.total, page: payload.page, limit: payload.limit }};
+      return { data: [], meta: { total:0, page:1, limit:PAGE_SIZE } };
+    }
+
+    function statusBadge(s){
+      const x = (s||'').toLowerCase();
+      if(x==='active') return '<span class="badge badge-green">active</span>';
+      if(x==='pending') return '<span class="badge badge-yellow">pending</span>';
+      if(x==='inactive') return '<span class="badge badge-gray">inactive</span>';
+      return `<span class="badge badge-red">${s||'unknown'}</span>`;
+    }
+
+    async function loadUsers(){
+      setBusy(true);
+      try{
+        const url = new URL(API.list, API_BASE);
+        url.searchParams.set('limit', PAGE_SIZE);
+        url.searchParams.set('page', String(state.page));
+        if(state.search) url.searchParams.set('search', state.search);
+        const res = await fetch(url.toString());
+        const json = await res.json().catch(()=>({}));
+        if(!res.ok) throw new Error(json?.message || 'Liste alınamadı');
+
+        const { data, meta } = unwrapList(json);
+        state.items = data || [];
+        const total = meta?.total ?? state.items.length;
+        const totalPages = Math.max(1, Math.ceil(total / (meta?.limit || PAGE_SIZE)));
+        state.totalPages = totalPages;
+        renderTable();
+        renderKpi(total);
+        qs('#emptyState').classList.toggle('hidden', state.items.length>0);
+        qs('#pageNow').textContent = String(state.page);
+        qs('#pageTotal').textContent = String(state.totalPages);
+        qs('#btnPrev').disabled = state.page<=1;
+        qs('#btnNext').disabled = state.page>=state.totalPages;
+      }catch(err){
+        toast(err.message || 'Bir hata oluştu', 'err');
+      }finally{
+        setBusy(false);
+      }
+    }
+
+    function renderKpi(total){
+      // naive counters
+      const act = state.items.filter(x => (x.status||'').toLowerCase()==='active').length;
+      const pen = state.items.filter(x => (x.status||'').toLowerCase()==='pending').length;
+      const ina = state.items.filter(x => (x.status||'').toLowerCase()==='inactive').length;
+      qs('#kpiTotal').textContent = String(total);
+      qs('#kpiActive').textContent = String(act);
+      qs('#kpiPending').textContent = String(pen);
+      qs('#kpiInactive').textContent = String(ina);
+    }
+
+    function renderTable(){
+      const tbody = qs('#tbody');
+      tbody.innerHTML = '';
+      if(!state.items.length) return;
+
+      state.items.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-sm text-gray-600">${u.id ?? ''}</td>
+          <td class="px-4 py-3">
+            <div class="text-sm font-medium text-gray-900">${u.name || '-'}</div>
+          </td>
+          <td class="px-4 py-3">
+            <div class="text-sm text-gray-800">${u.email || ''}</div>
+          </td>
+          <td class="px-4 py-3">${statusBadge(u.status)}</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center justify-end gap-2">
+              ${ (u.status||'').toLowerCase()!=='active' ? `<button class="btn btn-secondary text-xs" data-action="approve" data-id="${u.id}">Onayla</button>` : '' }
+              <button class="btn btn-secondary text-xs" data-action="edit" data-id="${u.id}">Düzenle</button>
+              <button class="btn btn-danger text-xs" data-action="del" data-id="${u.id}">Sil</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- Approve ---
+    async function approveUser(id){
+      try{
+        setBusy(true);
+        // Try dedicated approve endpoint first
+        let res = await fetch(api(API.approve, id), { method:'POST' });
+        if(res.status===404 || res.status===405){
+          // Fallback to PUT status=active
+          res = await fetch(api(API.update, id), {
+            method:'PUT',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ status:'active' })
+          });
+        }
+        const json = await res.json().catch(()=>({}));
+        if(!res.ok) throw new Error(json?.message || 'Onay başarısız');
+        toast('Kullanıcı onaylandı');
+        await loadUsers();
+      }catch(err){
+        toast(err.message || 'Onay sırasında hata', 'err');
+      }finally{
+        setBusy(false);
+      }
+    }
+
+    // --- CRUD ---
+    function openModal(mode='create', user=null){
+      const modal = qs('#modal');
+      const title = qs('#modalTitle');
+      const idEl = qs('#userId');
+      const name = qs('#name');
+      const email = qs('#email');
+      const pass = qs('#password');
+      const status = qs('#status');
+      const passwordWrap = qs('#passwordWrap');
+
+      if(mode==='create'){
+        title.textContent = 'Yeni Kullanıcı';
+        idEl.value = '';
+        name.value = '';
+        email.value = '';
+        pass.value = '';
+        status.value = 'pending';
+        passwordWrap.classList.remove('hidden');
+      }else{
+        title.textContent = 'Kullanıcıyı Düzenle';
+        idEl.value = user?.id ?? '';
+        name.value = user?.name ?? '';
+        email.value = user?.email ?? '';
+        status.value = (user?.status || 'active').toLowerCase();
+        pass.value = '';
+        passwordWrap.classList.add('hidden'); // editte şifre alanını gizliyoruz
+      }
+      show(modal);
+    }
+    function closeModal(){ hide(qs('#modal')); }
+
+    async function saveUser(e){
+      e.preventDefault();
+      const id = qs('#userId').value || null;
+      const name = qs('#name').value.trim();
+      const email = qs('#email').value.trim();
+      const status = qs('#status').value;
+      const pass = qs('#password').value;
+
+      // validations
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      qs('#emailErr').classList.toggle('hidden', emailOk);
+      if(!emailOk){ return; }
+      if(!id && pass.length<6){ qs('#passErr').classList.remove('hidden'); return; }
+      qs('#passErr').classList.add('hidden');
+
+      const payload = { email, status };
+      if(name) payload['name'] = name;
+      if(!id) payload['password'] = pass;
+
+      const btnText = qs('#btnSaveText');
+      const btnSpinner = qs('#btnSaveSpinner');
+      btnText.textContent = 'Kaydediliyor...';
+      btnSpinner.classList.remove('hidden');
+
+      try{
+        const res = await fetch(id ? api(API.update, id) : API.create, {
+          method: id ? 'PUT' : 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json().catch(()=>({}));
+        if(!res.ok) throw new Error(json?.message || 'Kaydetme başarısız');
+        closeModal();
+        toast('Kayıt başarıyla kaydedildi');
+        await loadUsers();
+      }catch(err){
+        toast(err.message || 'Bir hata oluştu', 'err');
+      }finally{
+        btnText.textContent = 'Kaydet';
+        btnSpinner.classList.add('hidden');
+      }
+    }
+
+    function openConfirm(id){ deletingId = id; show(qs('#confirm')); }
+    function closeConfirm(){ deletingId = null; hide(qs('#confirm')); }
+
+    async function deleteUser(id){
+      try{
+        setBusy(true);
+        const res = await fetch(api(API.remove, id), { method:'DELETE' });
+        if(!res.ok){
+          const json = await res.json().catch(()=>({}));
+          throw new Error(json?.message || 'Silme başarısız');
+        }
+        toast('Kullanıcı silindi');
+        await loadUsers();
+      }catch(err){
+        toast(err.message || 'Silme sırasında hata', 'err');
+      }finally{
+        setBusy(false);
+      }
+    }
+
+    // --- EVENTS ---
+    qs('#btnNew').addEventListener('click', () => openModal('create'));
+    qs('#modalClose').addEventListener('click', closeModal);
+    qs('#btnCancel').addEventListener('click', closeModal);
+    qs('#formUser').addEventListener('submit', saveUser);
+
+    qs('#confirmCancel').addEventListener('click', closeConfirm);
+    qs('#confirmOk').addEventListener('click', () => { if(deletingId!=null){ deleteUser(deletingId).then(closeConfirm); } });
+
+    // Row actions (event delegation)
+    qs('#tbody').addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const id = btn.getAttribute('data-id');
+      const action = btn.getAttribute('data-action');
+      const user = state.items.find(x => String(x.id)===String(id));
+      if(action==='approve') approveUser(id);
+      if(action==='edit') openModal('edit', user);
+      if(action==='del') openConfirm(id);
+    });
+
+    // Pagination
+    qs('#btnPrev').addEventListener('click', () => { if(state.page>1){ state.page--; loadUsers(); } });
+    qs('#btnNext').addEventListener('click', () => { if(state.page<state.totalPages){ state.page++; loadUsers(); } });
+
+    // Search (debounced)
+    let t=null;
+    qs('#searchInput').addEventListener('input', (e)=>{
+      clearTimeout(t);
+      t=setTimeout(()=>{
+        state.search = e.target.value.trim();
+        state.page = 1;
+        loadUsers();
+      }, 350);
+    });
+
+    // Boot
+    loadUsers();
+  </script>
+</body>
+</html>
