@@ -5,6 +5,7 @@ import { authFetchApi } from '@/lib/authFetchApi';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log('password-body', JSON.stringify(body));
     const data = await authFetchApi('/admin/users/profile/password', {
       method: 'POST',
       body: JSON.stringify(body),
@@ -14,7 +15,7 @@ export async function POST(req: NextRequest) {
   } catch (e: any) {
     return NextResponse.json(
       { message: e?.message ?? 'Parola güncellenemedi' },
-      { status: e?.status ?? 400 },
+      { status: e?.status ?? 401 },
     );
   }
 }

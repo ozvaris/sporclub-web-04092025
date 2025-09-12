@@ -5,7 +5,7 @@ import { authFetchApi } from '@/lib/authFetchApi';
 // GET /api/profile  -> proxy: GET /admin/users/profile
 export async function GET() {
   try {
-    const data = await authFetchApi('/admin/users/profile');
+    const data = await authFetchApi('/users/profile');
     return NextResponse.json(data);
   } catch (e: any) {
     return NextResponse.json(
@@ -15,12 +15,13 @@ export async function GET() {
   }
 }
 
-// PUT /api/profile -> proxy: PUT /admin/users/profile
-export async function PUT(req: NextRequest) {
+// PATCH /api/profile -> proxy: PATCH /admin/users/profile
+export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
-    const data = await authFetchApi('/admin/users/profile', {
-      method: 'PUT',
+    console.log('profile-body', JSON.stringify(body));
+    const data = await authFetchApi('/users/profile', {
+      method: 'PATCH',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' },
     });
@@ -33,15 +34,40 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-// DELETE /api/profile -> proxy: DELETE /admin/users/profile
+// src/app/api/profile/route.ts
+
 export async function DELETE() {
+  // 1) Backend’de kendi hesabını sil
   try {
-    const data = await authFetchApi('/admin/users/profile', { method: 'DELETE' });
-    return NextResponse.json(data);
+    await authFetchApi("/users/profile", {
+      method: "DELETE",
+      traceName: "auth:/users/profile#DELETE",
+    });
   } catch (e: any) {
     return NextResponse.json(
-      { message: e?.message ?? 'Silme işlemi başarısız' },
+      { message: e?.message ?? "Hesap silinemedi" },
       { status: e?.status ?? 400 },
     );
   }
+
+  // 2) Başarıyla silindikten sonra oturumu kapat (cookie’leri düşür)
+  const res = NextResponse.json({ ok: true });
+
+  const expire = (name: string) =>
+    res.cookies.set({
+      name,
+      value: "",
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      expires: new Date(0),
+    });
+
+  expire("access");
+  expire("refresh"); // varsa
+
+  console.log("Hesap silindi, oturum kapatıldı");
+
+  return res;
 }
+
