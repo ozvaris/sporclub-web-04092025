@@ -1,17 +1,15 @@
 // src/app/api/profile/route.ts
 import { NextResponse, NextRequest } from 'next/server';
 import { authFetchApi } from '@/lib/authFetchApi';
+import { routeError } from '../_lib/routeError';
 
 // GET /api/profile  -> proxy: GET /admin/users/profile
 export async function GET() {
   try {
     const data = await authFetchApi('/users/profile');
     return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json(
-      { message: e?.message ?? 'Unauthorized' },
-      { status: e?.status ?? 401 },
-    );
+  } catch (e) {
+     return routeError(e, "Unauthorized", 401);
   }
 }
 
@@ -26,11 +24,8 @@ export async function PATCH(req: NextRequest) {
       headers: { 'Content-Type': 'application/json' },
     });
     return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json(
-      { message: e?.message ?? 'Güncelleme başarısız' },
-      { status: e?.status ?? 400 },
-    );
+  } catch (e) {
+    return routeError(e, "Güncelleme başarısız", 400);
   }
 }
 
@@ -43,11 +38,8 @@ export async function DELETE() {
       method: "DELETE",
       traceName: "auth:/users/profile#DELETE",
     });
-  } catch (e: any) {
-    return NextResponse.json(
-      { message: e?.message ?? "Hesap silinemedi" },
-      { status: e?.status ?? 400 },
-    );
+  } catch (e) {
+    return routeError(e, "Hesap silinemedi", 400);
   }
 
   // 2) Başarıyla silindikten sonra oturumu kapat (cookie’leri düşür)

@@ -1,6 +1,7 @@
 // /src/app/api/register/route.ts
 import { NextResponse } from 'next/server';
 import { fetchApi } from '@/lib/fetchApi';
+import { routeError } from '../_lib/routeError';
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -12,7 +13,7 @@ export async function POST(req: Request) {
       traceName: 'route:/api/register',
     });
     return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json({ error: e?.message ?? 'Register failed' }, { status: e?.status ?? 400 });
+  } catch (e) {
+    return routeError(e, "Register failed", 401);
   }
 }

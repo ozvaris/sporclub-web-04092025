@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { fetchApi } from "@/lib/fetchApi";
+import { routeError } from "../_lib/routeError";
 
 type RefreshResp = {
   access_token: string;
@@ -65,14 +66,10 @@ export async function POST() {
 
     return res;
 
-  } catch (e: any) {
-    const res = NextResponse.json(
-      { error: e?.message ?? "Refresh failed" },
-      { status: e?.status ?? 401 }
-    );
-    // başarısızsa iki cookie'yi de sil
-    res.cookies.set("access", "", { maxAge: 0, path: "/" });
-    res.cookies.set("refresh", "", { maxAge: 0, path: "/" });
+  } catch (e) {
+    const res = routeError(e, "Refresh failed", 401);
+    res.cookies.set("access", "",  { maxAge: 0, path: "/" });
+    res.cookies.set("refresh","",  { maxAge: 0, path: "/" });
     return res;
   }
 }

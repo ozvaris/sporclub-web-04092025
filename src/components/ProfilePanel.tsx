@@ -40,7 +40,6 @@ function useMode() {
 export default function ProfilePanel() {
   const qc = useQueryClient();
   const { mode, setMode } = useMode();
-  
 
   const { data, isLoading, isError } = useQuery<ProfileDto>({
     queryKey: ["profile"],
@@ -88,7 +87,11 @@ export default function ProfilePanel() {
   });
 
   const mPassword = useMutation({
-    mutationFn: (payload: { password: string; newPassword: string, newpasswordConfirm: string }) =>
+    mutationFn: (payload: {
+      password: string;
+      newPassword: string;
+      newpasswordConfirm: string;
+    }) =>
       fetchApi("/api/profile/password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -244,10 +247,7 @@ export default function ProfilePanel() {
             </div>
           )}
 
-          <form
-            onSubmit={onSaveProfile}
-            className="space-y-4"
-          >
+          <form onSubmit={onSaveProfile} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Ad Soyad

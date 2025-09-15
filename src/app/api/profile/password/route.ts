@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { authFetchApi } from '@/lib/authFetchApi';
+import { routeError } from '../../_lib/routeError';
 
 // POST /api/profile/password -> proxy: POST /users/profile/password
 export async function POST(req: NextRequest) {
@@ -12,10 +13,7 @@ export async function POST(req: NextRequest) {
       headers: { 'Content-Type': 'application/json' },
     });
     return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json(
-      { message: e?.message ?? 'Parola güncellenemedi' },
-      { status: e?.status ?? 401 },
-    );
+  } catch (e) {
+    return routeError(e, "Parola güncellenemedi", 401);
   }
 }
