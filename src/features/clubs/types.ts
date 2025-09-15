@@ -12,6 +12,10 @@ export type Club = {
   phone?: string | null;
   email?: string | null;
   facilities?: ClubFacility[];
+  trophies?: Trophy[];
+  staffs?: Staff[];
+  staffCount?: number; // varsa backend'ten gelir; yoksa UI'da staffs?.length ile türetiriz
+
 };
 
 export type ClubNews = {
@@ -30,3 +34,20 @@ export type ClubPlayer = {
   offense?: number | null;
   cardImage?: string | null;
 };
+
+export interface Trophy {
+  id: string;
+  year: number;
+  title: string;
+  competition?: string;
+  level?: "International" | "National" | "Regional" | "Local";
+}
+
+export interface Staff {
+  id: string;
+  name: string;
+  role: string;
+  phone?: string;
+  email?: string;
+  avatar?: string; // opsiyonel görsel
+}

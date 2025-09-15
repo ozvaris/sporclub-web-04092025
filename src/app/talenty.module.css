@@ -30,9 +30,13 @@
 .caTheme :global(.text-gray-700) { color: var(--ca-muted) !important; }
 
 /* Başlıklar koyu */
-.caTheme :global(h1), 
-.caTheme :global(h2), 
-.caTheme :global(h3) { color: var(--ca-fg); }
+.caTheme :global(h1),
+.caTheme :global(h2),
+.caTheme :global(h3),
+.caTheme :global(.text-gray-900),
+.caTheme :global(.text-black) {
+  color: #1a237e !important;
+}
 
 /* Birincil butonlar (ör: indigo-600) laciverte dönsün */
 .caTheme :global(.bg-indigo-600) { background-color: var(--ca-primary) !important; }

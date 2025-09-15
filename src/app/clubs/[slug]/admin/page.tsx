@@ -48,8 +48,11 @@ export default async function ClubAdminPage({ params }: { params: Promise<PagePa
   return (
     <HydrationBoundary state={state}>
       <Header />
-      <main className="container mx-auto max-w-screen-xl px-4 md:px-6 py-6 md:py-10">
-        <ClubAdminPanel slug={slug} />
+      <main className="bg-[#e0e6ed]">
+        {/* 'container' yerine kontrollü merkezleme: tam ortalama ve referans paddings */}
+        <div className="mx-auto max-w-screen-xl px-4 md:px-6 py-6 md:py-10">
+          <ClubAdminPanel slug={slug} />
+        </div>
       </main>
       <Footer />
     </HydrationBoundary>
