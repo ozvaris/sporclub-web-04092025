@@ -6,6 +6,7 @@ import * as React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { fetchApi, apiErrorMessage } from "@/lib/fetchApi";
+import { PrivacyStatus } from "@/types/User";
 
 type ProfileDto = {
   id: number;
@@ -65,9 +66,16 @@ export default function ProfilePanel() {
     if (data)
       setForm({
         name: data.name ?? "",
-        privacy: (data.privacy as any) ?? "private",
+        privacy: (data.privacy as PrivacyStatus) ?? "private",
       });
   }, [data]);
+
+  const router = useRouter();
+
+  // Admin sayfasını önceden getir (hızlı geçiş)
+  React.useEffect(() => {
+    router.prefetch("/clubs/aslan-spor/admin");
+  }, [router]);
 
   const mUpdate = useMutation({
     mutationFn: (payload: Partial<ProfileDto>) =>
@@ -168,6 +176,8 @@ export default function ProfilePanel() {
               </button>
             }
           />
+
+          {/* Profil bilgileri grid’i (AYNEN DURUYOR) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div className="rounded-lg border p-3">
               <div className="text-gray-500">Kullanıcı ID</div>
@@ -191,6 +201,25 @@ export default function ProfilePanel() {
             </div>
           </div>
 
+          {/* >>> BURASI YENİ – Kulüp Yönetimi kısayol kartı <<< */}
+          <div className="mt-6 rounded-lg border p-4 flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-base font-semibold">Kulüp Yönetimi</h3>
+              <p className="text-sm text-gray-600">
+                Aslan Spor kulübünü yönetmek için paneli aç.
+              </p>
+            </div>
+            <button
+              onClick={() => router.push("/clubs/aslan-spor/admin")}
+              className="rounded-lg bg-indigo-600 text-white px-3 py-2 hover:bg-indigo-700"
+              aria-label="Kulüp yönetim panelini aç"
+            >
+              Paneli Aç
+            </button>
+          </div>
+          {/* <<< /YENİ KISIM >>> */}
+
+          {/* Tehlikeli Bölge (AYNEN DURUYOR) */}
           <div className="mt-8 border-t pt-6">
             <h3 className="text-sm font-semibold text-red-700">
               Tehlikeli Bölge

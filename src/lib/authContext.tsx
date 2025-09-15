@@ -3,7 +3,7 @@
 
 import { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { User } from '@/types';
+import { User } from '@/types/User';
 import { queryClient } from './queryClient';
 import { useRouter } from 'next/navigation';
 import { useProfileQuery } from '@/features/auth/useProfileQuery';

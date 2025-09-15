@@ -1,5 +1,28 @@
 // src/types/User.ts
 
+export enum UserStatus {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+  PENDING = "pending",
+  SUSPENDED = "suspended",
+  FORBIDDEN = "forbidden",
+  DELETED = "deleted",
+}
+
+export enum PrivacyStatus {
+  PUBLIC = "public",
+  PRIVATE = "private",
+}
+
+export enum MemberType {
+  FREE = "free",
+  STANDARD = "standard",
+  GOLD = "gold",
+  PREMIUM = "premium",
+  PROFESSIONAL = "professional",
+
+}
+
 export interface IUser {
   id: number;
   name: string;

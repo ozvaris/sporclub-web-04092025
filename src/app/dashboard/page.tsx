@@ -1,7 +1,7 @@
 // src/app/dashboard/page.tsx
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import type { User } from '@/types';
+import type { User } from '@/types/User';
 
 export default async function DashboardPage() {
   const access = (await cookies()).get('access')?.value;
