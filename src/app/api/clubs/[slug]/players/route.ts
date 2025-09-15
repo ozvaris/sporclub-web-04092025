@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { authFetchApi } from "@/lib/authFetchApi";
 import { routeError } from "@/app/api/_lib/routeError";
 
-export async function GET(_req: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
-    const data = await authFetchApi(`/admin/clubs/${params.slug}/players`, {
+    const { slug } = await params;
+    const data = await authFetchApi(`/admin/clubs/${slug}/players`, {
       traceName: "route:/admin/clubs/:slug/players#GET",
     });
     return NextResponse.json(data);
@@ -14,10 +15,11 @@ export async function GET(_req: NextRequest, { params }: { params: { slug: strin
   }
 }
 
-export async function POST(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
+    const { slug } = await params;
     const body = await req.json();
-    const data = await authFetchApi(`/admin/clubs/${params.slug}/players`, {
+    const data = await authFetchApi(`/admin/clubs/${slug}/players`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -29,10 +31,11 @@ export async function POST(req: NextRequest, { params }: { params: { slug: strin
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
+    const { slug } = await params;
     const body = await req.json(); // { id, defense?, offense? }
-    const data = await authFetchApi(`/admin/clubs/${params.slug}/players`, {
+    const data = await authFetchApi(`/admin/clubs/${slug}/players`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

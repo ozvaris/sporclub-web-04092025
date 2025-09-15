@@ -14,8 +14,8 @@ export const metadata = { title: "Kulüp Yönetim Paneli | Talenty" };
 
 type PageParams = { slug: string };
 
-export default async function ClubAdminPage({ params }: { params: PageParams }) {
-  const { slug } = params;
+export default async function ClubAdminPage({ params }: { params: Promise<PageParams> }) {
+  const { slug } = await params;
 
   const cookieStore = await cookies();
   if (!cookieStore.get("access")?.value) {
