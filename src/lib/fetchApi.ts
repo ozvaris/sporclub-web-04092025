@@ -19,7 +19,7 @@ export class ApiError extends Error {
     public traceId?: string,
     public url?: string,
   ) {
-    super(`API ${status} Error`);
+    super(`API ${status} Error${payload && typeof payload === "object" && "message" in payload ? `: ${(payload as any).message}` : ""}`);
     this.name = "ApiError";
   }
 }
@@ -83,6 +83,8 @@ export async function fetchApi<T>(path: string, init?: FetchInit): Promise<T> {
     ...init,
     headers: trace ? stampHeaders(headers, trace) : headers,
   });
+
+  // console.log(`fetchApi ${res.status} ${url}`);
 
   // 401'de client tarafta /api/* çağrısıysa otomatik refresh dene
   if (res.status === 401) {

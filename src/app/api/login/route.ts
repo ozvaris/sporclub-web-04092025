@@ -1,6 +1,7 @@
 // src/app/api/login/route.ts
 import { NextResponse } from "next/server";
 import { fetchApi, ApiError } from "@/lib/fetchApi";
+import { routeError } from "../_lib/routeError";
 
 type LoginResp = {
   access_token: string;
@@ -57,10 +58,6 @@ export async function POST(req: Request) {
 
     return res;
   } catch (e) {
-    const err = e as ApiError;
-    return NextResponse.json(
-      { error: (err.payload as any)?.error || err.message || "Login failed" },
-      { status: err.status || 401 },
-    );
+    return routeError(e, "Login failed", 401);
   }
 }

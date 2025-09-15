@@ -2,6 +2,8 @@
 
 /tmp
 
+merge_file_config.json
+
 # dependencies
 /node_modules
 /.pnp

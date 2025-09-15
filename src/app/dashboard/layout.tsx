@@ -17,7 +17,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   await queryClientServer.prefetchQuery({
     queryKey: ['profile'],
     queryFn: async () => {
-      const res = await fetch(process.env.BACKEND_URL + '/users/profile', {
+      const res = await fetch(process.env.BACKEND_URL + '/admin/users/profile', {
         headers: access ? { Authorization: `Bearer ${access}` } : {},
         // istersen next: { revalidate: 0 } ekleyebilirsin
       });

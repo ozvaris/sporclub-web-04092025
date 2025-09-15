@@ -1,5 +1,5 @@
-// src/app/login/page.tsx  (veya (auth)/login/page.tsx)
-// Server bileşen: login’liyse yönlendir
+// src/app/(auth)/login/page.tsx
+// Server bileşen: login'liyse profil'e yönlendirir
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import LoginForm from "./LoginForm";

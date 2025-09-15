@@ -1,0 +1,52 @@
+/* src/components/club-admin.module.css */
+/* — “Merkezi tema” değişkenleri — */
+.caTheme {
+  --ca-page: #0e2a5a;        /* lacivert ana ton */
+  --ca-surface: #f6f8ff;     /* panel/kart zemin */
+  --ca-card: #ffffff;        /* kart içi */
+  --ca-border: #d9e2ff;      /* kenarlık */
+  --ca-fg: #0f172a;          /* koyu metin */
+  --ca-muted: #6b7280;       /* açıklama metni */
+  --ca-primary: #2563eb;     /* buton/aksan */
+  --ca-primary-hover: #1e40af;
+  --ca-accent: #3b82f6;
+  letter-spacing: .01em;
+}
+
+/* Panelin arka planını hafif aç */
+.caTheme {
+  background: linear-gradient(0deg, rgba(14,42,90,0.06), rgba(14,42,90,0.06));
+  border-radius: 16px;
+  padding: .5rem; /* dış contour için hafif boşluk */
+}
+
+/* — Tailwind utility'lerini yerel olarak “tema değişkenleriyle” override et — */
+/* Not: :global ile utility class'larına dokunuyoruz, sadece bu panel içinde geçerli. */
+
+.caTheme :global(.bg-white) { background-color: var(--ca-surface) !important; }
+.caTheme :global(.border)   { border-color: var(--ca-border) !important; }
+
+.caTheme :global(.text-gray-600),
+.caTheme :global(.text-gray-700) { color: var(--ca-muted) !important; }
+
+/* Başlıklar koyu */
+.caTheme :global(h1), 
+.caTheme :global(h2), 
+.caTheme :global(h3) { color: var(--ca-fg); }
+
+/* Birincil butonlar (ör: indigo-600) laciverte dönsün */
+.caTheme :global(.bg-indigo-600) { background-color: var(--ca-primary) !important; }
+.caTheme :global(.bg-indigo-600:hover) { background-color: var(--ca-primary-hover) !important; }
+
+/* Onay butonu (emerald) aynı aksana çekmek istersen aç */
+.caTheme :global(.bg-emerald-600) { background-color: var(--ca-accent) !important; }
+
+/* Kart içleri beyaz kalsın istiyorsan aşağıyı aç */
+.caTheme .caCard { background: var(--ca-card); }
+
+/* (Opsiyonel) Haber kartlarının ince gölgesi */
+.caTheme .caNews { box-shadow: 0 1px 2px rgba(14,42,90,0.06); }
+
+/* Görsellerin kenarlıkları */
+.caTheme :global(img), 
+.caTheme :global(.next-image) { border-radius: 8px; }
