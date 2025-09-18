@@ -16,6 +16,9 @@ const remotePatterns: RP[] = [
   // geliştirirken localhost’tan gelen görseller
   { protocol: "http", hostname: "localhost"},
   { protocol: "http", hostname: "127.0.0.1"},
+  { protocol: "https", hostname: "placehold.co"},
+  {protocol: "https", hostname: "yt3.googleusercontent.com"},
+  {protocol: "https", hostname: "i.ytimg.com"}
 ];
 
 // prod’da CDN kullanıyorsan koşullu ekle

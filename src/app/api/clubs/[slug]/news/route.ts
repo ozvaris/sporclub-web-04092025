@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { authFetchApi } from "@/lib/authFetchApi";
 import { routeError } from "@/app/api/_lib/routeError";
 
-export async function GET(_req: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
-    const data = await authFetchApi(`/admin/clubs/${params.slug}/news`, {
+    const { slug } = await params;
+    const data = await authFetchApi(`/admin/clubs/${slug}/news`, {
       traceName: "route:/admin/clubs/:slug/news#GET",
     });
     return NextResponse.json(data);
