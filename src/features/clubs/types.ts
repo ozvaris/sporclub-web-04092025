@@ -22,6 +22,7 @@ export type ClubNews = {
   id: number;
   title: string;
   summary: string;
+  thumbnail?: string | null;     // ← eklendi
   published_at: string; // ISO
 };
 
