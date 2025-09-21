@@ -13,10 +13,10 @@ import { authFetchApi } from '@/lib/authFetchApi';
 export const metadata = { title: 'Profil ve Ayarlar | Talenty' };
 
 export default async function ProfilePage() {
-  const cookieStore = await cookies();
-  if (!cookieStore.get('access')?.value) {
-    redirect(`/login?next=${encodeURIComponent('/profile')}`);
-  }
+  // const cookieStore = await cookies();
+  // if (!cookieStore.get('access')?.value) {
+  //   redirect(`/login?next=${encodeURIComponent('/profile')}`);
+  // }
 
   const queryClientServer = QueryClientServer();
   try {
