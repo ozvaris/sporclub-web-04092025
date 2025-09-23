@@ -1,19 +1,19 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { authFetchApi } from '@/lib/authFetchApi';
+// src/app/api/profile/password/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { routeError } from '../../_lib/routeError';
+import { changePassword, type ChangePasswordInput } from '@/server/services/profile';
 
-// POST /api/profile/password -> proxy: POST /users/profile/password
+// POST /api/profile/password -> backend: POST /users/profile/password
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    console.log('password-body', JSON.stringify(body));
-    const data = await authFetchApi('/users/profile/password', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const body = (await req.json()) as ChangePasswordInput;
+    const data = await changePassword(body);
+    // Mevcut route’unuz POST ile proxy yapıyordu, aynı davranış korunuyor
+    // :contentReference[oaicite:2]{index=2}
     return NextResponse.json(data);
   } catch (e) {
-    return routeError(e, "Parola güncellenemedi", 401);
+    // Önceki mesaj: "Parola güncellenemedi"
+    // :contentReference[oaicite:3]{index=3}
+    return routeError(e, 'Parola güncellenemedi', 401);
   }
 }

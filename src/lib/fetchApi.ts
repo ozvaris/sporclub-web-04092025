@@ -66,6 +66,41 @@ function resolveUrl(path: string) {
   return base ? new URL(path, base).toString() : path; // base yoksa olduğu gibi kullan
 }
 
+
+// function resolveUrl(path: string) {
+//   // 1) Mutlak URL ise dokunma
+//   try { return new URL(path).toString(); } catch {}
+
+//   const isServer = typeof window === 'undefined';
+
+//   // 2) Next'in kendi route'ları: /api/*
+//   if (path.startsWith('/api/')) {
+//     // Server'da fetch(relative) -> Invalid URL; absolute origin kur
+//     if (isServer) {
+//       // .env.local içine APP_URL veya NEXT_PUBLIC_APP_URL koy: örn. http://localhost:3000
+//       const envOrigin =
+//         process.env.NEXT_PUBLIC_APP_URL ||
+//         process.env.APP_URL ||
+//         (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '');
+
+//       // env yoksa son çare dev varsayılanı
+//       const origin = envOrigin || 'http://localhost:3000';
+//       return new URL(path, origin).toString();
+//     }
+//     // Client'ta relative sorun değil
+//     return path;
+//   }
+
+//   // 3) Geri kalanlar: backend origin'i uygula
+//   const base =
+//     isServer
+//       ? (process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_BASE_URL || '')
+//       : (process.env.NEXT_PUBLIC_API_BASE_URL || '');
+
+//   return base ? new URL(path, base).toString() : path;
+// }
+
+
 export async function fetchApi<T>(path: string, init?: FetchInit): Promise<T> {
 
   const url = resolveUrl(path);

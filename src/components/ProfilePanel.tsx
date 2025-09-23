@@ -217,6 +217,19 @@ export default function ProfilePanel() {
               Paneli Aç
             </button>
           </div>
+          <div className="mt-6 rounded-lg border p-4 flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-base font-semibold">Kulüp Yönetimi</h3>
+              <p className="text-sm text-gray-600">Aslan Spor News Aç</p>
+            </div>
+            <button
+              onClick={() => router.push("/posts/club/storybox/c-1")}
+              className="rounded-lg bg-indigo-600 text-white px-3 py-2 hover:bg-indigo-700"
+              aria-label="Kulüp haberini aç"
+            >
+              Haber Aç
+            </button>
+          </div>
           {/* <<< /YENİ KISIM >>> */}
 
           {/* Tehlikeli Bölge (AYNEN DURUYOR) */}

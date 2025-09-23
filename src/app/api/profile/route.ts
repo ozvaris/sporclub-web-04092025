@@ -1,65 +1,56 @@
 // src/app/api/profile/route.ts
-import { NextResponse, NextRequest } from 'next/server';
-import { authFetchApi } from '@/lib/authFetchApi';
+import { NextRequest, NextResponse } from 'next/server';
 import { routeError } from '../_lib/routeError';
+import { getProfile, updateProfile, deleteProfile } from '@/server/services/profile';
 
-// GET /api/profile  -> proxy: GET /admin/users/profile
+// GET /api/profile -> backend: GET /users/profile
 export async function GET() {
   try {
-    const data = await authFetchApi('/users/profile');
+    const data = await getProfile();
     return NextResponse.json(data);
   } catch (e) {
-     return routeError(e, "Unauthorized", 401);
+    // Mevcut implementasyonunuzda Unauthorized 401 dönüyordu
+    // :contentReference[oaicite:0]{index=0}
+    return routeError(e, 'Unauthorized', 401);
   }
 }
 
-// PATCH /api/profile -> proxy: PATCH /admin/users/profile
+// PATCH /api/profile -> backend: PATCH /users/profile
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log('profile-body', JSON.stringify(body));
-    const data = await authFetchApi('/users/profile', {
-      method: 'PATCH',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const data = await updateProfile(body);
     return NextResponse.json(data);
   } catch (e) {
-    return routeError(e, "Güncelleme başarısız", 400);
+    // Önceki mesaj: "Güncelleme başarısız"
+    // :contentReference[oaicite:1]{index=1}
+    return routeError(e, 'Güncelleme başarısız', 400);
   }
 }
 
-// src/app/api/profile/route.ts
-
+// DELETE /api/profile -> backend: DELETE /users/profile  (+ cookie temizliği)
 export async function DELETE() {
-  // 1) Backend’de kendi hesabını sil
   try {
-    await authFetchApi("/users/profile", {
-      method: "DELETE",
-      traceName: "auth:/users/profile#DELETE",
-    });
+    await deleteProfile();
   } catch (e) {
-    return routeError(e, "Hesap silinemedi", 400);
+    return routeError(e, 'Hesap silinemedi', 400);
   }
 
-  // 2) Başarıyla silindikten sonra oturumu kapat (cookie’leri düşür)
+  // Hesap silindikten sonra oturumu kapat
   const res = NextResponse.json({ ok: true });
 
   const expire = (name: string) =>
     res.cookies.set({
       name,
-      value: "",
-      path: "/",
+      value: '',
+      path: '/',
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: 'lax',
       expires: new Date(0),
     });
 
-  expire("access");
-  expire("refresh"); // varsa
-
-  console.log("Hesap silindi, oturum kapatıldı");
+  expire('access');
+  expire('refresh'); // varsa
 
   return res;
 }
-

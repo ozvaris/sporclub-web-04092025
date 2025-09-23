@@ -1,7 +1,7 @@
-// src/app/api/news/global/[postId]/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { authFetchApi } from "@/lib/authFetchApi";
-import { routeError } from "@/app/api/_lib/routeError";
+// src/app/api/posts/global/[postId]/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { routeError } from '@/app/api/_lib/routeError';
+import { getGlobalPostDetail } from '@/server/services/posts';
 
 export async function GET(
   _req: NextRequest,
@@ -9,12 +9,9 @@ export async function GET(
 ) {
   try {
     const { postId } = await params;
-    const data = await authFetchApi(
-      `/admin/posts/global/${encodeURIComponent(postId)}`,
-      { traceName: "route:/admin/posts/global/:postId#GET" }
-    );
+    const data = await getGlobalPostDetail(postId);
     return NextResponse.json(data);
   } catch (e) {
-    return routeError(e, "Global haber detayı getirilemedi", 400);
+    return routeError(e, 'Global haber detayı getirilemedi', 400);
   }
 }

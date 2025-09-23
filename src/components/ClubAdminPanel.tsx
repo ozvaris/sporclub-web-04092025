@@ -46,8 +46,8 @@ export default function ClubAdminPanel({ slug }: { slug: string }) {
   const newsQ = useQuery<ClubNews[]>({
     queryKey: ["clubNews", slug],
     queryFn: () =>
-      fetchApi<ClubNews[]>(`/api/clubs/${slug}/news`, {
-        traceName: "client:/api/clubs/:slug/news#GET",
+      fetchApi<ClubNews[]>(`/api/clubs/${slug}/posts`, {
+        traceName: "client:/api/clubs/:slug/posts#GET",
       }),
     staleTime: 60_000,
   });

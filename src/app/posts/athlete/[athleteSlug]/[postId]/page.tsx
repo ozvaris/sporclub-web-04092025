@@ -1,24 +1,21 @@
 // src/app/posts/athlete/[athleteSlug]/[postId]/page.tsx
-import { notFound, redirect } from "next/navigation";
-import type { Metadata } from "next";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import GenericPostsDetail from "@/components/posts/GenericPostsDetail";
+import { notFound, redirect } from 'next/navigation';
+import type { Metadata } from 'next';
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import GenericPostsDetail from '@/components/posts/GenericPostsDetail';
 import { QueryClientServer } from '@/lib/queryClientServer';
-import { authFetchApi } from "@/lib/authFetchApi";
 import { ApiError } from '@/lib/fetchApi';
-import { PostScope, PostsType, type PostArticle } from "@/features/posts/types";
+import { PostScope, PostsType } from '@/features/posts/types';
+import { getAthletePostDetail, listAthletePosts } from '@/server/services/posts';
 
 type Params = { params: Promise<{ athleteSlug: string; postId: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { athleteSlug, postId } = await params;
   try {
-    const a = await authFetchApi<PostArticle>(
-      `/api/posts/athlete/${athleteSlug}/${postId}`,
-      { traceName: "ssr:/api/posts/athlete/:athleteSlug/:postId#GET:meta" }
-    );
+    const a = await getAthletePostDetail(athleteSlug, postId);
     return {
-      title: a?.title ?? "Haber",
+      title: a?.title ?? 'Haber',
       description: a?.summary ?? undefined,
       openGraph: {
         title: a?.title ?? undefined,
@@ -27,35 +24,31 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       },
     };
   } catch {
-    return { title: "Haber", description: "Atlet haberi" };
+    return { title: 'Haber', description: 'Sporcu haberi' };
   }
 }
 
 export default async function Page({ params }: Params) {
   const { athleteSlug, postId } = await params;
-
-  const queryClientServer = QueryClientServer();
+  const qc = QueryClientServer();
 
   try {
-    await queryClientServer.prefetchQuery({
-      queryKey: ["postsDetail", PostScope.ATHLETE, athleteSlug, postId],
-      queryFn: () =>
-        authFetchApi<PostArticle>(
-          `/api/posts/athlete/${athleteSlug}/${postId}`,
-          { traceName: "ssr:/api/posts/athlete/:athleteSlug/:postId#GET" }
-        ),
+    // 1) Detay (HTTP yok → direkt service)
+    await qc.fetchQuery({
+      queryKey: ['postsDetail', PostScope.ATHLETE, athleteSlug, postId],
+      queryFn: () => getAthletePostDetail(athleteSlug, postId),
       staleTime: 60_000,
     });
 
-    await queryClientServer.prefetchQuery({
-      queryKey: ["postsRelated", PostScope.ATHLETE, athleteSlug, postId],
+    // 2) İlgili (örnek: aynı tipten 6 adet; mevcut post hariç)
+    await qc.fetchQuery({
+      queryKey: ['postsRelated', PostScope.ATHLETE, athleteSlug, postId],
       queryFn: () =>
-        authFetchApi<PostArticle[]>(
-          `/api/posts/athlete/${athleteSlug}?type=${PostsType.ARTICLE}&exclude=${encodeURIComponent(
-            postId
-          )}&limit=6`,
-          { traceName: "ssr:/api/posts/athlete/:athleteSlug#GET:related" }
-        ),
+        listAthletePosts(athleteSlug, {
+          type: PostsType.ARTICLE,
+          exclude: postId,
+          limit: 6,
+        }),
       staleTime: 60_000,
     });
   } catch (e) {
@@ -67,7 +60,7 @@ export default async function Page({ params }: Params) {
     throw err;
   }
 
-  const state = dehydrate(queryClientServer);
+  const state = dehydrate(qc);
 
   return (
     <HydrationBoundary state={state}>

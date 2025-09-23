@@ -1,7 +1,7 @@
-// src/app/api/news/athlete/[athleteSlug]/[postId]/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { authFetchApi } from "@/lib/authFetchApi";
-import { routeError } from "@/app/api/_lib/routeError";
+// src/app/api/posts/athlete/[athleteSlug]/[postId]/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { routeError } from '@/app/api/_lib/routeError';
+import { getAthletePostDetail } from '@/server/services/posts';
 
 export async function GET(
   _req: NextRequest,
@@ -9,12 +9,9 @@ export async function GET(
 ) {
   try {
     const { athleteSlug, postId } = await params;
-    const data = await authFetchApi(
-      `/admin/posts/athlete/${encodeURIComponent(athleteSlug)}/${encodeURIComponent(postId)}`,
-      { traceName: "route:/admin/posts/athlete/:athleteSlug/:postId#GET" }
-    );
+    const data = await getAthletePostDetail(athleteSlug, postId);
     return NextResponse.json(data);
   } catch (e) {
-    return routeError(e, "Atlet haber detayı getirilemedi", 400);
+    return routeError(e, 'Sporcu haberi detayı getirilemedi', 400);
   }
 }

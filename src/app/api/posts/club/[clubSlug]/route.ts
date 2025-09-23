@@ -1,7 +1,7 @@
 // src/app/api/posts/club/[clubSlug]/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { authFetchApi } from "@/lib/authFetchApi";
-import { routeError } from "@/app/api/_lib/routeError";
+import { NextRequest, NextResponse } from 'next/server';
+import { routeError } from '@/app/api/_lib/routeError';
+import { listClubPosts } from '@/server/services/posts';
 
 export async function GET(
   req: NextRequest,
@@ -11,23 +11,18 @@ export async function GET(
     const { clubSlug } = await params;
     const sp = new URL(req.url).searchParams;
 
-    // forward edilen filtreler
-    const qs = new URLSearchParams();
-    for (const key of ["type", "exclude", "limit", "page", "tags", "categories"]) {
-      const v = sp.get(key);
-      if (v) qs.set(key, v);
-    }
+    const p = {
+      type: sp.get('type') ?? undefined,
+      exclude: sp.get('exclude') ?? undefined,
+      limit: sp.get('limit') ?? undefined,
+      page: sp.get('page') ?? undefined,
+      tags: sp.get('tags') ?? undefined,
+      categories: sp.get('categories') ?? undefined,
+    };
 
-    const path =
-      `/admin/posts/club/${encodeURIComponent(clubSlug)}` +
-      (qs.toString() ? `?${qs.toString()}` : "");
-
-    const data = await authFetchApi(path, {
-      traceName: "route:/admin/posts/club/:clubSlug#GET",
-    });
-
+    const data = await listClubPosts(clubSlug, p);
     return NextResponse.json(data);
   } catch (e) {
-    return routeError(e, "Kulüp haberleri yüklenemedi", 400);
+    return routeError(e, 'Kulüp haberleri yüklenemedi', 400);
   }
 }
