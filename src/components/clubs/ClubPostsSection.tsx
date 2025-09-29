@@ -1,9 +1,9 @@
-// src/components/clubs/ClubNewsSection.tsx
+// src/components/clubs/ClubPostsSection.tsx
 "use client";
 
 import * as React from "react";
 import Image from "next/image";
-import type { ClubNews } from "@/features/clubs/types";
+import type { ClubPosts } from "@/features/clubs/types";
 import { formatTR } from "@/lib/utils/formatTR";
 
 /** simple class joiner */
@@ -12,8 +12,8 @@ function cx(...x: Array<string | false | null | undefined>) {
 }
 
 
-export type ClubNewsSectionProps = {
-  items?: ClubNews[];
+export type ClubPostsSectionProps = {
+  items?: ClubPosts[];
   isLoading?: boolean;
   title?: string;
   className?: string;
@@ -22,14 +22,14 @@ export type ClubNewsSectionProps = {
   thumbWidth?: number; // default 168
 };
 
-export default function ClubNewsSection({
+export default function ClubPostsSection({
   items = [],
   isLoading = false,
   title = "Kulüp Haberleri ve Duyuruları",
   className,
   skeletonCount = 3,
   thumbWidth = 168,
-}: ClubNewsSectionProps) {
+}: ClubPostsSectionProps) {
   const thumbWidthClass = `md:w-[${thumbWidth}px]`;
 
   return (

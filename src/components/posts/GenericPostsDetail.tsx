@@ -107,7 +107,7 @@ export default function GenericPostsDetail({ scope, ownerSlug, postIdOrSlug, cla
   const a = detailQ.data;
   if (!a) return <p className="text-sm text-gray-600">Haber bulunamadı.</p>;
 
-  const hero = a.cover || a.thumbnail || null;
+  const hero = a.cover_url || a.thumbnail || null;
   const date = a.published_at ? new Date(a.published_at).toLocaleDateString("tr-TR") : "";
 
   return (
@@ -213,7 +213,7 @@ export default function GenericPostsDetail({ scope, ownerSlug, postIdOrSlug, cla
         ) : relatedQ.data?.length ? (
           <div className="space-y-3">
             {relatedQ.data.map((n) => {
-              const thumb = n.thumbnail || n.cover || undefined;
+              const thumb = n.thumbnail || n.cover_url || undefined;
               const link = detailPath(scope, ownerSlug, String(n.slug ?? n.id));
               return (
                 <Link

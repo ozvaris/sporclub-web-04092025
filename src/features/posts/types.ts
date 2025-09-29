@@ -43,7 +43,7 @@ export type PostBase = {
 
 export type PostArticle = PostBase & {
   type: PostsType.ARTICLE;
-  cover?: string | null;          // hero (varsa)
+  cover_url?: string | null;          // hero (varsa)
   thumbnail?: string | null;      // küçük görsel (listeler)
   tags?: string[] | null;
   categories?: string[] | null;

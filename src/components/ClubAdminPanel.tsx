@@ -7,14 +7,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiErrorMessage, fetchApi } from "@/lib/fetchApi";
 import type {
   Club,
-  ClubNews,
+  ClubPosts,
   ClubPlayer,
 } from "@/features/clubs/types";
 
 /** Tema CSS Module + (opsiyonel) Roboto font */
 import { Roboto } from "next/font/google";
 import ClubVideoSection from "./clubs/ClubVideoSection";
-import ClubNewsSection from "@/components/clubs/ClubNewsSection";
+import ClubPostsSection from "@/components/clubs/ClubPostsSection";
 import ClubPlayersSection from "@/components/clubs/ClubPlayersSection";
 import ClubTrophiesSection from "@/components/clubs/ClubTrophiesSection";
 import ClubStaffSection from "@/components/clubs/ClubStaffSection";
@@ -43,10 +43,10 @@ export default function ClubAdminPanel({ slug }: { slug: string }) {
     staleTime: 60_000,
   });
 
-  const newsQ = useQuery<ClubNews[]>({
-    queryKey: ["clubNews", slug],
+  const newsQ = useQuery<ClubPosts[]>({
+    queryKey: ["clubPosts", slug],
     queryFn: () =>
-      fetchApi<ClubNews[]>(`/api/clubs/${slug}/posts`, {
+      fetchApi<ClubPosts[]>(`/api/clubs/${slug}/posts`, {
         traceName: "client:/api/clubs/:slug/posts#GET",
       }),
     staleTime: 60_000,
@@ -345,7 +345,7 @@ export default function ClubAdminPanel({ slug }: { slug: string }) {
           },
         ]}
       />
-      <ClubNewsSection
+      <ClubPostsSection
         className="col-span-full"
         items={newsQ.data}
         isLoading={newsQ.isLoading}

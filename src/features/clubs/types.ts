@@ -18,7 +18,7 @@ export type Club = {
 
 };
 
-export type ClubNews = {
+export type ClubPosts = {
   id: number;
   title: string;
   summary: string;

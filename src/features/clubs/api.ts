@@ -1,12 +1,12 @@
 // src/features/clubs/api.ts
 import { fetchApi } from "@/lib/fetchApi";
-import type { Club, ClubNews, ClubPlayer } from "./types";
+import type { Club, ClubPosts, ClubPlayer } from "./types";
 
 export const getClub = (slug: string) =>
   fetchApi<Club>(`/api/clubs/${slug}`, { traceName: "feature:getClub" });
 
-export const getClubNews = (slug: string) =>
-  fetchApi<ClubNews[]>(`/api/clubs/${slug}/news`, { traceName: "feature:getClubNews" });
+export const getClubPosts = (slug: string) =>
+  fetchApi<ClubPosts[]>(`/api/clubs/${slug}/news`, { traceName: "feature:getClubPosts" });
 
 export const getClubPlayers = (slug: string) =>
   fetchApi<ClubPlayer[]>(`/api/clubs/${slug}/players`, { traceName: "feature:getClubPlayers" });

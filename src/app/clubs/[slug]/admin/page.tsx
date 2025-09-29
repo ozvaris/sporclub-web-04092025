@@ -29,7 +29,7 @@ export default async function ClubAdminPage({ params }: { params: Promise<PagePa
 
     // 2) Kulüp haberleri
     await qc.fetchQuery({
-      queryKey: ['clubNews', slug],
+      queryKey: ['clubPosts', slug],
       queryFn: () => listClubPosts(slug),
       staleTime: 60_000,
     });
